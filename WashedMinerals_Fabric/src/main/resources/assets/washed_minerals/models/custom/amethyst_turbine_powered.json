@@ -548,11 +548,11 @@
       }
     },
     {
-      "name": "shaft z",
+      "name": "shaft z1",
       "from": [
         6.975,
         6.9575,
-        1.3
+        7
       ],
       "to": [
         9.025,
@@ -576,16 +576,16 @@
             4,
             2
           ],
-          "texture": "#copper dynamo"
+          "texture": "#copper dynamo 8x8"
         },
         "east": {
           "uv": [
             0,
-            2,
-            8,
-            4
+            4,
+            2.125,
+            6
           ],
-          "texture": "#copper dynamo"
+          "texture": "#copper dynamo 8x8"
         },
         "south": {
           "uv": [
@@ -594,36 +594,116 @@
             6,
             2
           ],
-          "texture": "#copper dynamo"
+          "texture": "#copper dynamo 8x8"
         },
         "west": {
           "uv": [
             0,
             2,
-            8,
+            2.125,
             4
           ],
-          "texture": "#copper dynamo"
+          "texture": "#copper dynamo 8x8"
         },
         "up": {
           "uv": [
-            8,
-            4,
+            2.125,
+            10,
             0,
-            2
+            8
           ],
           "rotation": 90,
-          "texture": "#copper dynamo"
+          "texture": "#copper dynamo 8x8"
         },
         "down": {
           "uv": [
             0,
-            4,
             8,
-            2
+            2.125,
+            6
           ],
           "rotation": 90,
-          "texture": "#copper dynamo"
+          "texture": "#copper dynamo 8x8"
+        }
+      }
+    },
+    {
+      "name": "shaft z2",
+      "from": [
+        6.975,
+        6.9575,
+        1.3
+      ],
+      "to": [
+        9.025,
+        9.0075,
+        7
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "z",
+        "origin": [
+          8,
+          8,
+          9
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            2,
+            0,
+            4,
+            2
+          ],
+          "texture": "#copper dynamo 8x8"
+        },
+        "east": {
+          "uv": [
+            0,
+            2,
+            6.125,
+            4
+          ],
+          "texture": "#copper dynamo 8x8"
+        },
+        "south": {
+          "uv": [
+            4,
+            0,
+            6,
+            2
+          ],
+          "texture": "#copper dynamo 8x8"
+        },
+        "west": {
+          "uv": [
+            0,
+            8,
+            6.125,
+            10
+          ],
+          "texture": "#copper dynamo 8x8"
+        },
+        "up": {
+          "uv": [
+            6.125,
+            8,
+            0,
+            6
+          ],
+          "rotation": 90,
+          "texture": "#copper dynamo 8x8"
+        },
+        "down": {
+          "uv": [
+            0,
+            6,
+            6.125,
+            4
+          ],
+          "rotation": 90,
+          "texture": "#copper dynamo 8x8"
         }
       }
     },
@@ -641,7 +721,7 @@
       ],
       "rotation": {
         "angle": 0,
-        "axis": "y",
+        "axis": "z",
         "origin": [
           8,
           8,
@@ -773,10 +853,11 @@
             8,
             9,
             10,
-            11
+            11,
+            12
           ]
         },
-        12
+        13
       ]
     }
   ]

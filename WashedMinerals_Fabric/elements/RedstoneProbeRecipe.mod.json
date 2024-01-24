@@ -1,0 +1,48 @@
+{
+  "_fv": 47,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "",
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "Blocks.STAINED_GLASS_PANE#14"
+      },
+      {
+        "value": "Blocks.REDSTONE_TORCH"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "Items.COPPER_INGOT"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "Items.GOLD_NUGGET"
+      },
+      {
+        "value": "Items.COPPER_INGOT"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:RedstoneProbe"
+    },
+    "name": "redstone_probe_recipe",
+    "namespace": "mod"
+  }
+}

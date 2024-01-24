@@ -1,8 +1,17 @@
 {
   "block.washed_minerals.amethyst_turbine_powered": "Amethyst Turbine Powered",
+  "translation.washed_minerals.invalid_processing_setup": "Invalid processing setup; in front of the turbine - water/lava/soul fire",
+  "item.washed_minerals.redstone_probe": "Redstone Probe",
+  "translation.washed_minerals.redstone_block_life_left": "Redstone Block life left: ",
+  "translation.washed_minerals.dead_redstone_block_lore": "A Dead Redstone Block? Wonder if it has any use..",
+  "translation.washed_minerals.front_requires_air": "Check if the front isnt blocked by a solid block",
+  "translation.washed_minerals.back_requires_air": "The back of this block has to be exposed to air.",
+  "translation.washed_minerals.process_life_left": "Process time left: ",
   "item.washed_minerals.amethyst_propeller": "Amethyst Propeller",
+  "translation.washed_minerals.requires_redstone_block": "This requires a Redstone Block to be powered.",
+  "translation.washed_minerals.copper_dynamo_lore": "Copper Dynamo, the core of every powered machine.",
   "block.washed_minerals.dead_redstone_block": "Dead Redstone Block",
   "block.washed_minerals.amethyst_turbine": "Amethyst Turbine",
-  "block.washed_minerals.copper_dynamo": "Copper Dynamo",
-  "subtitles.fan": "Amethyst Turbine running"
+  "subtitles.fan": "Amethyst Turbine running",
+  "block.washed_minerals.copper_dynamo": "Copper Dynamo"
 }

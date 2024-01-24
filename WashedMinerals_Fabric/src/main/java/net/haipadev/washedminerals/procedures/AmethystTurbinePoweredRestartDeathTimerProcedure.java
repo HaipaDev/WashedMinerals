@@ -18,35 +18,36 @@ public class AmethystTurbinePoweredRestartDeathTimerProcedure {
 		double counterSlot = 0;
 		double counterSlotAmnt = 0;
 		double total_ticks = 0;
-		templateAmnt = 60;
-		factor22Amnt = 10;
-		factor2Amnt = 9;
-		factorAmnt = 9;
-		counterSlotAmnt = 60;
-		templateSlot = 5;
-		factor22Slot = 6;
-		factor2Slot = 7;
-		factorSlot = 8;
-		counterSlot = 9;
+		double amntStartedAs0Slot = 0;
+		amntStartedAs0Slot = 7;
+		templateSlot = 8;
+		factor22Slot = 9;
+		factor2Slot = 10;
+		factorSlot = 11;
+		counterSlot = 12;
 		BlockEntity _ent0 = world.getBlockEntity(BlockPos.containing(x, y, z));
 		if (_ent0 != null) {
-			((RandomizableContainerBlockEntity) _ent0).removeItemNoUpdate((int) templateSlot);
+			((RandomizableContainerBlockEntity) _ent0).removeItemNoUpdate((int) amntStartedAs0Slot);
 		}
 		BlockEntity _ent1 = world.getBlockEntity(BlockPos.containing(x, y, z));
 		if (_ent1 != null) {
-			((RandomizableContainerBlockEntity) _ent1).removeItemNoUpdate((int) factor22Slot);
+			((RandomizableContainerBlockEntity) _ent1).removeItemNoUpdate((int) templateSlot);
 		}
 		BlockEntity _ent2 = world.getBlockEntity(BlockPos.containing(x, y, z));
 		if (_ent2 != null) {
-			((RandomizableContainerBlockEntity) _ent2).removeItemNoUpdate((int) factor2Slot);
+			((RandomizableContainerBlockEntity) _ent2).removeItemNoUpdate((int) factor22Slot);
 		}
 		BlockEntity _ent3 = world.getBlockEntity(BlockPos.containing(x, y, z));
 		if (_ent3 != null) {
-			((RandomizableContainerBlockEntity) _ent3).removeItemNoUpdate((int) factorSlot);
+			((RandomizableContainerBlockEntity) _ent3).removeItemNoUpdate((int) factor2Slot);
 		}
 		BlockEntity _ent4 = world.getBlockEntity(BlockPos.containing(x, y, z));
 		if (_ent4 != null) {
-			((RandomizableContainerBlockEntity) _ent4).removeItemNoUpdate((int) counterSlot);
+			((RandomizableContainerBlockEntity) _ent4).removeItemNoUpdate((int) factorSlot);
+		}
+		BlockEntity _ent5 = world.getBlockEntity(BlockPos.containing(x, y, z));
+		if (_ent5 != null) {
+			((RandomizableContainerBlockEntity) _ent5).removeItemNoUpdate((int) counterSlot);
 		}
 		AmethystTurbineSetDeathTimerProcedure.execute(world, x, y, z);
 	}

@@ -26,7 +26,7 @@ import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
 import java.util.stream.IntStream;
 
 public class AmethystTurbineBlockEntity extends RandomizableContainerBlockEntity implements ExtendedScreenHandlerFactory, WorldlyContainer {
-	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(10, ItemStack.EMPTY);
+	private NonNullList<ItemStack> stacks = NonNullList.<ItemStack>withSize(13, ItemStack.EMPTY);
 
 	public AmethystTurbineBlockEntity(BlockPos position, BlockState state) {
 		super(WashedMineralsModBlockEntities.AMETHYST_TURBINE, position, state);
@@ -122,6 +122,12 @@ public class AmethystTurbineBlockEntity extends RandomizableContainerBlockEntity
 			return false;
 		if (index == 9)
 			return false;
+		if (index == 10)
+			return false;
+		if (index == 11)
+			return false;
+		if (index == 12)
+			return false;
 		return true;
 	}
 
@@ -156,6 +162,12 @@ public class AmethystTurbineBlockEntity extends RandomizableContainerBlockEntity
 		if (index == 8)
 			return false;
 		if (index == 9)
+			return false;
+		if (index == 10)
+			return false;
+		if (index == 11)
+			return false;
+		if (index == 12)
 			return false;
 		return true;
 	}

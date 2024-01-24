@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Registry;
 
+import net.haipadev.washedminerals.item.RedstoneProbeItem;
 import net.haipadev.washedminerals.item.AmethystPropellerItem;
 import net.haipadev.washedminerals.WashedMineralsMod;
 
@@ -21,6 +22,7 @@ public class WashedMineralsModItems {
 	public static Item DEAD_REDSTONE_BLOCK;
 	public static Item AMETHYST_TURBINE;
 	public static Item AMETHYST_TURBINE_POWERED;
+	public static Item REDSTONE_PROBE;
 
 	public static void load() {
 		COPPER_DYNAMO = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(WashedMineralsMod.MODID, "copper_dynamo"), new BlockItem(WashedMineralsModBlocks.COPPER_DYNAMO, new Item.Properties()));
@@ -31,6 +33,7 @@ public class WashedMineralsModItems {
 		AMETHYST_TURBINE = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(WashedMineralsMod.MODID, "amethyst_turbine"), new BlockItem(WashedMineralsModBlocks.AMETHYST_TURBINE, new Item.Properties()));
 		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(content -> content.accept(AMETHYST_TURBINE));
 		AMETHYST_TURBINE_POWERED = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(WashedMineralsMod.MODID, "amethyst_turbine_powered"), new BlockItem(WashedMineralsModBlocks.AMETHYST_TURBINE_POWERED, new Item.Properties()));
+		REDSTONE_PROBE = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(WashedMineralsMod.MODID, "redstone_probe"), new RedstoneProbeItem());
 	}
 
 	public static void clientLoad() {

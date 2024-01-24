@@ -103,7 +103,7 @@
     "hasInventory": true,
     "guiBoundTo": "<NONE>",
     "openGUIOnRightClick": false,
-    "inventorySize": 10,
+    "inventorySize": 13,
     "inventoryStackSize": 64,
     "inventoryDropWhenDestroyed": false,
     "inventoryComparatorPower": false,
@@ -117,7 +117,10 @@
       6,
       7,
       8,
-      9
+      9,
+      10,
+      11,
+      12
     ],
     "inventoryInSlotIDs": [
       0,
@@ -129,7 +132,10 @@
       6,
       7,
       8,
-      9
+      9,
+      10,
+      11,
+      12
     ],
     "hasEnergyStorage": false,
     "energyInitial": 0,

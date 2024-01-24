@@ -3,6 +3,7 @@
   "id": "washed_minerals",
   "version": "1.0.0",
   "name": "Washed Minerals",
+  "description": "Washing, Haunting and Blasting systems in your grasp!",
   "authors": [
     "HaipaDev, MCreator"
   ],
@@ -10,7 +11,8 @@
     "homepage": "https://modrinth.com/mod/washed-minerals",
     "sources": ""
   },
-  "license": "Academic Free License v3.0",
+  "license": "MIT License",
+  "icon": "assets/washed_minerals/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [

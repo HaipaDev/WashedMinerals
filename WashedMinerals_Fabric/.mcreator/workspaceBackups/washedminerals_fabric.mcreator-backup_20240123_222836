@@ -107,19 +107,6 @@
       }
     },
     {
-      "name": "AmethysTurbineRecipe",
-      "type": "recipe",
-      "sortid": 8,
-      "compiles": true,
-      "locked_code": false,
-      "registry_name": "amethys_turbine_recipe",
-      "metadata": {
-        "files": [
-          "src/main/resources/data/washed_minerals/recipes/amethys_turbine_recipe.json"
-        ]
-      }
-    },
-    {
       "name": "AmethystTurbinePoweredRestartDeathTimer",
       "type": "procedure",
       "sortid": 10,
@@ -428,6 +415,248 @@
           }
         ]
       }
+    },
+    {
+      "name": "AmethystTurbineRecipe",
+      "type": "recipe",
+      "sortid": 19,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_recipe",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/washed_minerals/recipes/amethyst_turbine_recipe.json"
+        ]
+      }
+    },
+    {
+      "name": "ConfigWrite",
+      "type": "procedure",
+      "sortid": 20,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "config_write",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/ConfigWriteProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OnPlayerJoin",
+      "type": "procedure",
+      "sortid": 21,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "on_player_join",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/OnPlayerJoinProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OnBlockBroken",
+      "type": "procedure",
+      "sortid": 22,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "on_block_broken",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/OnBlockBrokenProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OnPlayerRespawn",
+      "type": "procedure",
+      "sortid": 24,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "on_player_respawn",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/OnPlayerRespawnProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DeadRedstoneBlockExtension",
+      "type": "itemextension",
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "dead_redstone_block_extension",
+      "metadata": {
+        "files": []
+      }
+    },
+    {
+      "name": "RedstoneProbeRightclickedOnBlock",
+      "type": "procedure",
+      "sortid": 28,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "redstone_probe_rightclicked_on_block",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/RedstoneProbeRightclickedOnBlockProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "entity",
+            "type": "entity"
+          },
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RedstoneProbe",
+      "type": "item",
+      "sortid": 29,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "redstone_probe",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/item/RedstoneProbeItem.java",
+          "src/main/resources/assets/washed_minerals/models/item/redstone_probe.json"
+        ]
+      }
+    },
+    {
+      "name": "RedstoneProbeRecipe",
+      "type": "recipe",
+      "sortid": 30,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "redstone_probe_recipe",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/washed_minerals/recipes/redstone_probe_recipe.json"
+        ]
+      }
+    },
+    {
+      "name": "OnPlayerLeftClickBlock",
+      "type": "procedure",
+      "sortid": 31,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "on_player_left_click_block",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/OnPlayerLeftClickBlockProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbinePoweredSetProcessTimer",
+      "type": "procedure",
+      "sortid": 32,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_powered_set_process_timer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbinePoweredSetProcessTimerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbinePoweredClearProcessTimer",
+      "type": "procedure",
+      "sortid": 33,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_powered_clear_process_timer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbinePoweredClearProcessTimerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
     }
   ],
   "variable_elements": [],
@@ -444,19 +673,37 @@
   "language_map": {
     "pl_pl": {
       "block.washed_minerals.amethyst_turbine_powered": "Zasilona Ametystowa Turbina",
+      "translation.washed_minerals.invalid_processing_setup": "Nieprawidłowa konfiguracja przetwarzania; z przodu turbinu - woda/lawa/ogień dusz",
+      "item.washed_minerals.redstone_probe": "Redstonowa Sonda",
+      "translation.washed_minerals.redstone_block_life_left": "Pozostała żywotność Bloku Redstonu: ",
+      "translation.washed_minerals.dead_redstone_block_lore": "Martwy Blok Redstonu? Ciekawe czy jest w czymś użyteczny..",
+      "translation.washed_minerals.front_requires_air": "Sprawdź czy przód nie jest zablokowany przez solidny blok.",
+      "translation.washed_minerals.back_requires_air": "Tył tego bloku musi być odkryty na działanie powietrza.",
+      "translation.washed_minerals.process_life_left": "Pozostały czas przetwarzania: ",
       "item.washed_minerals.amethyst_propeller": "Amethystowe Śmigło",
-      "block.washed_minerals.dead_redstone_block": "Martwy Blok Czerwonego Kamienia",
+      "translation.washed_minerals.requires_redstone_block": "Aby działało, musi być zasilane Blokiem Redstone.",
+      "translation.washed_minerals.copper_dynamo_lore": "Miedziane Dynamo, serce każdej maszyny napędzanej.",
+      "block.washed_minerals.dead_redstone_block": "Martwy Blok Redstone",
       "block.washed_minerals.amethyst_turbine": "Ametystowa Turbina",
-      "block.washed_minerals.copper_dynamo": "Miedziane Dynamo",
-      "subtitles.fan": "Ametystowa Turbina działa"
+      "subtitles.fan": "Ametystowa Turbina działa",
+      "block.washed_minerals.copper_dynamo": "Miedziane Dynamo"
     },
     "en_us": {
       "block.washed_minerals.amethyst_turbine_powered": "Amethyst Turbine Powered",
+      "translation.washed_minerals.invalid_processing_setup": "Invalid processing setup; in front of the turbine - water/lava/soul fire",
+      "item.washed_minerals.redstone_probe": "Redstone Probe",
+      "translation.washed_minerals.redstone_block_life_left": "Redstone Block life left: ",
+      "translation.washed_minerals.dead_redstone_block_lore": "A Dead Redstone Block? Wonder if it has any use..",
+      "translation.washed_minerals.front_requires_air": "Check if the front isnt blocked by a solid block",
+      "translation.washed_minerals.back_requires_air": "The back of this block has to be exposed to air.",
+      "translation.washed_minerals.process_life_left": "Process time left: ",
       "item.washed_minerals.amethyst_propeller": "Amethyst Propeller",
+      "translation.washed_minerals.requires_redstone_block": "This requires a Redstone Block to be powered.",
+      "translation.washed_minerals.copper_dynamo_lore": "Copper Dynamo, the core of every powered machine.",
       "block.washed_minerals.dead_redstone_block": "Dead Redstone Block",
       "block.washed_minerals.amethyst_turbine": "Amethyst Turbine",
-      "block.washed_minerals.copper_dynamo": "Copper Dynamo",
-      "subtitles.fan": "Amethyst Turbine running"
+      "subtitles.fan": "Amethyst Turbine running",
+      "block.washed_minerals.copper_dynamo": "Copper Dynamo"
     }
   },
   "foldersRoot": {
@@ -467,16 +714,18 @@
     "modid": "washed_minerals",
     "modName": "Washed Minerals",
     "version": "1.0.0",
-    "author": "Hyper, MCreator",
-    "websiteURL": "https://mcreator.net",
-    "license": "Academic Free License v3.0",
+    "author": "HaipaDev, MCreator",
+    "websiteURL": "https://modrinth.com/mod/washed-minerals",
+    "license": "MIT License",
     "disableForgeVersionCheck": true,
     "serverSideOnly": false,
+    "modPicture": "washed_minerals_icon",
     "requiredMods": [],
     "dependencies": [],
     "dependants": [],
     "mcreatorDependencies": [],
     "currentGenerator": "fabric-1.20.1",
+    "credits": "Created using mod maker MCreator - https://mcreator.net/about",
     "modElementsPackage": "net.haipadev.washedminerals",
     "lockBaseModFiles": false
   },

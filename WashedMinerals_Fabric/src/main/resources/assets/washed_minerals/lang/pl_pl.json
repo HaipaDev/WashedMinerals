@@ -1,8 +1,17 @@
 {
   "block.washed_minerals.amethyst_turbine_powered": "Zasilona Ametystowa Turbina",
+  "translation.washed_minerals.invalid_processing_setup": "Nieprawidłowa konfiguracja przetwarzania; z przodu turbinu - woda/lawa/ogień dusz",
+  "item.washed_minerals.redstone_probe": "Redstonowa Sonda",
+  "translation.washed_minerals.redstone_block_life_left": "Pozostała żywotność Bloku Redstonu: ",
+  "translation.washed_minerals.dead_redstone_block_lore": "Martwy Blok Redstonu? Ciekawe czy jest w czymś użyteczny..",
+  "translation.washed_minerals.front_requires_air": "Sprawdź czy przód nie jest zablokowany przez solidny blok.",
+  "translation.washed_minerals.back_requires_air": "Tył tego bloku musi być odkryty na działanie powietrza.",
+  "translation.washed_minerals.process_life_left": "Pozostały czas przetwarzania: ",
   "item.washed_minerals.amethyst_propeller": "Amethystowe Śmigło",
-  "block.washed_minerals.dead_redstone_block": "Martwy Blok Czerwonego Kamienia",
+  "translation.washed_minerals.requires_redstone_block": "Aby działało, musi być zasilane Blokiem Redstone.",
+  "translation.washed_minerals.copper_dynamo_lore": "Miedziane Dynamo, serce każdej maszyny napędzanej.",
+  "block.washed_minerals.dead_redstone_block": "Martwy Blok Redstone",
   "block.washed_minerals.amethyst_turbine": "Ametystowa Turbina",
-  "block.washed_minerals.copper_dynamo": "Miedziane Dynamo",
-  "subtitles.fan": "Ametystowa Turbina działa"
+  "subtitles.fan": "Ametystowa Turbina działa",
+  "block.washed_minerals.copper_dynamo": "Miedziane Dynamo"
 }

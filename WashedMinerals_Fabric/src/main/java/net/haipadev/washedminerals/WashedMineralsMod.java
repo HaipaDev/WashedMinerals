@@ -18,6 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import net.haipadev.washedminerals.init.WashedMineralsModSounds;
 import net.haipadev.washedminerals.init.WashedMineralsModProcedures;
 import net.haipadev.washedminerals.init.WashedMineralsModItems;
+import net.haipadev.washedminerals.init.WashedMineralsModItemExtensions;
 import net.haipadev.washedminerals.init.WashedMineralsModBlocks;
 import net.haipadev.washedminerals.init.WashedMineralsModBlockEntities;
 
@@ -36,6 +37,8 @@ public class WashedMineralsMod implements ModInitializer {
 		WashedMineralsModBlockEntities.load();
 
 		WashedMineralsModProcedures.load();
+
+		WashedMineralsModItemExtensions.load();
 
 		WashedMineralsModSounds.load();
 

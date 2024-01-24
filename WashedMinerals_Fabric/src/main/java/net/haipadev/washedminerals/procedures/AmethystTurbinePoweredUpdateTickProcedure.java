@@ -27,47 +27,52 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
+import net.minecraft.client.Minecraft;
 
+import net.haipadev.washedminerals.init.WashedMineralsModItems;
 import net.haipadev.washedminerals.init.WashedMineralsModBlocks;
 
 import java.util.stream.Collectors;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.Map;
 import java.util.List;
 import java.util.Comparator;
 
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.File;
+import java.io.BufferedReader;
+
+import com.google.gson.Gson;
+
 public class AmethystTurbinePoweredUpdateTickProcedure {
 	public static void execute(LevelAccessor world, double x, double y, double z) {
 		BlockState block_powering = Blocks.AIR.defaultBlockState();
 		Entity processedItem = null;
-		double chanceForSuccess = 0;
+		File file = new File("");
+		com.google.gson.JsonObject json = new com.google.gson.JsonObject();
+		com.google.gson.JsonObject subJsonCategory = new com.google.gson.JsonObject();
+		com.google.gson.JsonObject subJson = new com.google.gson.JsonObject();
+		String tag = "";
+		String categoryToCheck = "";
+		ItemStack itemToProcess = ItemStack.EMPTY;
+		ItemStack dropItem = ItemStack.EMPTY;
 		double itemBlockRelX = 0;
 		double itemBlockRelZ = 0;
 		double itemBlockRelY = 0;
-		double chanceForSuccess2 = 0;
 		double pX = 0;
 		double chanceForDeath = 0;
-		double chanceForSuccess3 = 0;
 		double i = 0;
 		double pY = 0;
 		double pZ = 0;
-		double amntPerProcess = 0;
-		double chanceForSuccess1 = 0;
-		double dropRatePerOne = 0;
-		double amntPerProcess1 = 0;
-		double amntPerProcess3 = 0;
 		double bX = 0;
-		double amntPerProcess2 = 0;
 		double bY = 0;
 		double bZ = 0;
-		double dropRatePerOne3 = 0;
-		double processedType = 0;
-		double dropRatePerOne2 = 0;
-		double dropRatePerOne1 = 0;
-		ItemStack dropItem = ItemStack.EMPTY;
-		ItemStack dropItem1 = ItemStack.EMPTY;
-		ItemStack dropItem2 = ItemStack.EMPTY;
-		ItemStack dropItem3 = ItemStack.EMPTY;
+		double c = 0;
+		double amntPerProcess = 0;
+		double chanceForSuccess = 0;
+		double dropRatePerOne = 0;
 		boolean checkChancePerSingleItem = false;
 		boolean isValidProcessingSetup = false;
 		boolean isHaunting = false;
@@ -76,24 +81,13 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 		boolean strong_powered = false;
 		boolean wasSuccess = false;
 		boolean isBlasting = false;
+		boolean deathEnabled = false;
 		AmethystTurbinePoweredLoopSoundProcedure.execute(world, x, y, z);
 		chanceForDeath = 80;
 		amntPerProcess = 1;
-		dropRatePerOne = 1;
-		chanceForSuccess = 100;
 		checkChancePerSingleItem = true;
-		dropItem1 = new ItemStack(Items.IRON_NUGGET);
-		chanceForSuccess1 = 65;
-		amntPerProcess1 = 8;
-		dropRatePerOne1 = 1;
-		dropItem2 = new ItemStack(Items.GOLD_NUGGET);
-		chanceForSuccess2 = 50;
-		amntPerProcess2 = 4;
-		dropRatePerOne2 = 1;
-		dropItem3 = new ItemStack(Items.ECHO_SHARD);
-		chanceForSuccess3 = 1;
-		amntPerProcess3 = 1;
-		dropRatePerOne3 = 1;
+		chanceForSuccess = 100;
+		dropRatePerOne = 1;
 		if (!world.isClientSide()) {
 			bX = x + 1;
 			bY = y + 0;
@@ -137,16 +131,33 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 				}
 			}
 		}
-		if (new Object() {
-			public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
-				AtomicInteger count = new AtomicInteger(0);
-				BlockEntity _ent = world.getBlockEntity(pos);
-				RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
-				if (_ent != null)
-					count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
-				return count.get();
+		deathEnabled = true;
+		file = (File) new File((Minecraft.getInstance().gameDirectory + "/config/washed_minerals/"), File.separator + "config.json");
+		if (file.exists()) {
+			{
+				try {
+					BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+					StringBuilder jsonstringbuilder = new StringBuilder();
+					String line;
+					while ((line = bufferedReader.readLine()) != null) {
+						jsonstringbuilder.append(line);
+					}
+					bufferedReader.close();
+					json = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
+					if (json.has("redstoneBlockDeathTicks")) {
+						if (Math.round(json.get("redstoneBlockDeathTicks").getAsDouble()) <= 0) {
+							deathEnabled = false;
+						}
+					}
+					if (json.has("redstoneBlockDeathChance")) {
+						chanceForDeath = Math.round(json.get("redstoneBlockDeathChance").getAsDouble());
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-		}.getAmount(world, (BlockPos.containing(x, y, z)), 0) > 0) {
+		}
+		if (deathEnabled == true) {
 			if (new Object() {
 				public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
 					AtomicInteger count = new AtomicInteger(0);
@@ -156,26 +167,38 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 						count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
 					return count.get();
 				}
-			}.getAmount(world, (BlockPos.containing(x, y, z)), 6) >= 1) {
-				AmethystTurbinePoweredTickDeathTimerProcedure.execute(world, x, y, z);
+			}.getAmount(world, (BlockPos.containing(x, y, z)), 0) > 0) {
+				if (new Object() {
+					public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
+						AtomicInteger count = new AtomicInteger(0);
+						BlockEntity _ent = world.getBlockEntity(pos);
+						RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
+						if (_ent != null)
+							count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
+						return count.get();
+					}
+				}.getAmount(world, (BlockPos.containing(x, y, z)), 9) >= 1) {
+					AmethystTurbinePoweredTickDeathTimerProcedure.execute(world, x, y, z);
+				} else {
+					if (Mth.nextInt(RandomSource.create(), 1, 100) <= chanceForDeath) {
+						world.destroyBlock(BlockPos.containing(pX, pY, pZ), false);
+						world.levelEvent(2001, BlockPos.containing(pX, pY, pZ), Block.getId(Blocks.REDSTONE_BLOCK.defaultBlockState()));
+						world.setBlock(BlockPos.containing(pX, pY, pZ), WashedMineralsModBlocks.DEAD_REDSTONE_BLOCK.defaultBlockState(), 3);
+						AmethystTurbinePoweredClearProcessTimerProcedure.execute(world, x, y, z);
+					}
+					AmethystTurbinePoweredRestartDeathTimerProcedure.execute(world, x, y, z);
+				}
 			} else {
-				if (Mth.nextInt(RandomSource.create(), 1, 100) <= chanceForDeath) {
-					world.destroyBlock(BlockPos.containing(pX, pY, pZ), false);
-					world.levelEvent(2001, BlockPos.containing(pX, pY, pZ), Block.getId(Blocks.REDSTONE_BLOCK.defaultBlockState()));
-					world.setBlock(BlockPos.containing(pX, pY, pZ), WashedMineralsModBlocks.DEAD_REDSTONE_BLOCK.defaultBlockState(), 3);
+				{
+					BlockEntity _ent = world.getBlockEntity(BlockPos.containing(x, y, z));
+					ItemStack stack = new ItemStack(Items.REDSTONE);
+					stack.setCount(5);
+					if (_ent != null) {
+						((RandomizableContainerBlockEntity) _ent).setItem(0, stack);
+					}
 				}
 				AmethystTurbinePoweredRestartDeathTimerProcedure.execute(world, x, y, z);
 			}
-		} else {
-			{
-				BlockEntity _ent = world.getBlockEntity(BlockPos.containing(x, y, z));
-				ItemStack stack = new ItemStack(Items.REDSTONE);
-				stack.setCount(5);
-				if (_ent != null) {
-					((RandomizableContainerBlockEntity) _ent).setItem(0, stack);
-				}
-			}
-			AmethystTurbinePoweredRestartDeathTimerProcedure.execute(world, x, y, z);
 		}
 		if (found_powersource == false || !(world.isEmptyBlock(BlockPos.containing(x - (new Object() {
 			public Direction getDirection(BlockPos pos) {
@@ -393,7 +416,7 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 					return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
 				return Direction.NORTH;
 			}
-		}.getDirection(BlockPos.containing(x, y, z))).getStepZ()))).getBlock().getStateDefinition().getProperty("waterlogged") instanceof BooleanProperty _getbp57 && (world.getBlockState(BlockPos.containing(x + (new Object() {
+		}.getDirection(BlockPos.containing(x, y, z))).getStepZ()))).getBlock().getStateDefinition().getProperty("waterlogged") instanceof BooleanProperty _getbp65 && (world.getBlockState(BlockPos.containing(x + (new Object() {
 			public Direction getDirection(BlockPos pos) {
 				BlockState _bs = world.getBlockState(pos);
 				Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
@@ -429,7 +452,7 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 					return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
 				return Direction.NORTH;
 			}
-		}.getDirection(BlockPos.containing(x, y, z))).getStepZ()))).getValue(_getbp57)) == false && !((world.getBlockState(BlockPos.containing(x + (new Object() {
+		}.getDirection(BlockPos.containing(x, y, z))).getStepZ()))).getValue(_getbp65)) == false && !((world.getBlockState(BlockPos.containing(x + (new Object() {
 			public Direction getDirection(BlockPos pos) {
 				BlockState _bs = world.getBlockState(pos);
 				Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
@@ -567,6 +590,7 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 					}
 				}
 			}
+			AmethystTurbinePoweredClearProcessTimerProcedure.execute(world, x, y, z);
 		}
 		if ((world.getBlockState(BlockPos.containing(x + (new Object() {
 			public Direction getDirection(BlockPos pos) {
@@ -712,7 +736,7 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 					return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
 				return Direction.NORTH;
 			}
-		}.getDirection(BlockPos.containing(x, y, z))).getStepZ()))).getBlock().getStateDefinition().getProperty("waterlogged") instanceof BooleanProperty _getbp114 && (world.getBlockState(BlockPos.containing(x + (new Object() {
+		}.getDirection(BlockPos.containing(x, y, z))).getStepZ()))).getBlock().getStateDefinition().getProperty("waterlogged") instanceof BooleanProperty _getbp122 && (world.getBlockState(BlockPos.containing(x + (new Object() {
 			public Direction getDirection(BlockPos pos) {
 				BlockState _bs = world.getBlockState(pos);
 				Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
@@ -748,7 +772,7 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 					return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
 				return Direction.NORTH;
 			}
-		}.getDirection(BlockPos.containing(x, y, z))).getStepZ()))).getValue(_getbp114)) == true) {
+		}.getDirection(BlockPos.containing(x, y, z))).getStepZ()))).getValue(_getbp122)) == true) {
 			isValidProcessingSetup = true;
 			isWashing = true;
 		} else if ((world.getBlockState(BlockPos.containing(x + (new Object() {
@@ -1032,282 +1056,386 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 					}
 				}.getDirection(BlockPos.containing(x, y, z))).getStepZ() * 0.8), 0.01);
 		}
+		if (isValidProcessingSetup == false) {
+			BlockEntity _ent176 = world.getBlockEntity(BlockPos.containing(x, y, z));
+			if (_ent176 != null) {
+				((RandomizableContainerBlockEntity) _ent176).removeItemNoUpdate(6);
+			}
+		}
 		if (isValidProcessingSetup == true) {
+			BlockEntity _ent177 = world.getBlockEntity(BlockPos.containing(x, y, z));
+			if (_ent177 != null) {
+				((RandomizableContainerBlockEntity) _ent177).removeItemNoUpdate(6);
+			}
 			{
-				final Vec3 _center = new Vec3((x + 0.5), (y + 0.5), (z + 0.5));
-				List<Entity> _entfound = world.getEntitiesOfClass(Entity.class, new AABB(_center, _center).inflate(4.5 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center)))
-						.collect(Collectors.toList());
-				for (Entity entityiterator : _entfound) {
-					if (entityiterator instanceof ItemEntity) {
-						itemBlockRelX = entityiterator.getX() - x;
-						itemBlockRelY = entityiterator.getY() - y;
-						itemBlockRelZ = entityiterator.getZ() - z;
-						if ((new Object() {
-							public Direction getDirection(BlockPos pos) {
-								BlockState _bs = world.getBlockState(pos);
-								Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
-								if (property != null && _bs.getValue(property) instanceof Direction _dir)
-									return _dir;
-								else if (_bs.hasProperty(BlockStateProperties.AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
-								else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
-								return Direction.NORTH;
-							}
-						}.getDirection(BlockPos.containing(x, y, z))) == Direction.NORTH && itemBlockRelZ <= 0 && itemBlockRelX >= -0.1 && itemBlockRelX <= 1.1 && itemBlockRelY < 1 && itemBlockRelY >= -0.3 || (new Object() {
-							public Direction getDirection(BlockPos pos) {
-								BlockState _bs = world.getBlockState(pos);
-								Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
-								if (property != null && _bs.getValue(property) instanceof Direction _dir)
-									return _dir;
-								else if (_bs.hasProperty(BlockStateProperties.AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
-								else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
-								return Direction.NORTH;
-							}
-						}.getDirection(BlockPos.containing(x, y, z))) == Direction.SOUTH && itemBlockRelZ >= 0 && itemBlockRelX >= -0.1 && itemBlockRelX <= 1.1 && itemBlockRelY < 1 && itemBlockRelY >= -0.3 || (new Object() {
-							public Direction getDirection(BlockPos pos) {
-								BlockState _bs = world.getBlockState(pos);
-								Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
-								if (property != null && _bs.getValue(property) instanceof Direction _dir)
-									return _dir;
-								else if (_bs.hasProperty(BlockStateProperties.AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
-								else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
-								return Direction.NORTH;
-							}
-						}.getDirection(BlockPos.containing(x, y, z))) == Direction.EAST && itemBlockRelX >= 0 && itemBlockRelZ >= -0.1 && itemBlockRelZ <= 1.1 && itemBlockRelY < 1 && itemBlockRelY >= -0.3 || (new Object() {
-							public Direction getDirection(BlockPos pos) {
-								BlockState _bs = world.getBlockState(pos);
-								Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
-								if (property != null && _bs.getValue(property) instanceof Direction _dir)
-									return _dir;
-								else if (_bs.hasProperty(BlockStateProperties.AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
-								else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
-								return Direction.NORTH;
-							}
-						}.getDirection(BlockPos.containing(x, y, z))) == Direction.WEST && itemBlockRelX <= 0 && itemBlockRelZ >= -0.1 && itemBlockRelZ <= 1.1 && itemBlockRelY < 1 && itemBlockRelY >= -0.3 || (new Object() {
-							public Direction getDirection(BlockPos pos) {
-								BlockState _bs = world.getBlockState(pos);
-								Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
-								if (property != null && _bs.getValue(property) instanceof Direction _dir)
-									return _dir;
-								else if (_bs.hasProperty(BlockStateProperties.AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
-								else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
-								return Direction.NORTH;
-							}
-						}.getDirection(BlockPos.containing(x, y, z))) == Direction.UP && itemBlockRelY >= 0 && itemBlockRelX >= -0.1 && itemBlockRelX <= 1.1 && itemBlockRelZ >= -0.1 && itemBlockRelZ <= 1.1 || (new Object() {
-							public Direction getDirection(BlockPos pos) {
-								BlockState _bs = world.getBlockState(pos);
-								Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
-								if (property != null && _bs.getValue(property) instanceof Direction _dir)
-									return _dir;
-								else if (_bs.hasProperty(BlockStateProperties.AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
-								else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
-									return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
-								return Direction.NORTH;
-							}
-						}.getDirection(BlockPos.containing(x, y, z))) == Direction.DOWN && itemBlockRelY <= 0 && itemBlockRelX >= -0.1 && itemBlockRelX <= 1.1 && itemBlockRelZ >= -0.1 && itemBlockRelZ <= 1.1) {
-							if (isWashing == true) {
-								if ((entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == Blocks.GRAVEL.asItem()) {
-									processedItem = entityiterator;
-									processedType = 1;
-									dropItem = dropItem1;
-									chanceForSuccess = chanceForSuccess1;
-									amntPerProcess = amntPerProcess1;
-									dropRatePerOne = dropRatePerOne1;
-								} else if ((entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == Blocks.RED_SAND.asItem()) {
-									processedItem = entityiterator;
-									processedType = 2;
-									dropItem = dropItem2;
-									chanceForSuccess = chanceForSuccess2;
-									amntPerProcess = amntPerProcess2;
-									dropRatePerOne = dropRatePerOne2;
-								} else if ((entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == WashedMineralsModBlocks.DEAD_REDSTONE_BLOCK.asItem()) {
-									processedItem = entityiterator;
-									processedType = 3;
-									dropItem = dropItem3;
-									chanceForSuccess = chanceForSuccess3;
-									amntPerProcess = amntPerProcess3;
-									dropRatePerOne = dropRatePerOne3;
-								} else if ((entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == Blocks.SAND.asItem()) {
-									processedItem = entityiterator;
-									processedType = 4;
-									dropItem = new ItemStack(Items.CLAY_BALL);
-									chanceForSuccess = chanceForSuccess2;
-									amntPerProcess = amntPerProcess2;
-									dropRatePerOne = amntPerProcess2;
+				BlockEntity _ent = world.getBlockEntity(BlockPos.containing(x, y, z));
+				ItemStack stack = new ItemStack(WashedMineralsModItems.AMETHYST_PROPELLER);
+				stack.setCount(1);
+				if (_ent != null) {
+					((RandomizableContainerBlockEntity) _ent).setItem(6, stack);
+				}
+			}
+			file = (File) new File((Minecraft.getInstance().gameDirectory + "/config/washed_minerals/"), File.separator + "config.json");
+			if (file.exists()) {
+				{
+					try {
+						BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+						StringBuilder jsonstringbuilder = new StringBuilder();
+						String line;
+						while ((line = bufferedReader.readLine()) != null) {
+							jsonstringbuilder.append(line);
+						}
+						bufferedReader.close();
+						json = new Gson().fromJson(jsonstringbuilder.toString(), com.google.gson.JsonObject.class);
+						{
+							final Vec3 _center = new Vec3((x + 0.5), (y + 0.5), (z + 0.5));
+							List<Entity> _entfound = world.getEntitiesOfClass(Entity.class, new AABB(_center, _center).inflate(4.5 / 2d), e -> true).stream().sorted(Comparator.comparingDouble(_entcnd -> _entcnd.distanceToSqr(_center)))
+									.collect(Collectors.toList());
+							for (Entity entityiterator : _entfound) {
+								if (entityiterator instanceof ItemEntity) {
+									itemBlockRelX = entityiterator.getX() - x;
+									itemBlockRelY = entityiterator.getY() - y;
+									itemBlockRelZ = entityiterator.getZ() - z;
+									if ((new Object() {
+										public Direction getDirection(BlockPos pos) {
+											BlockState _bs = world.getBlockState(pos);
+											Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
+											if (property != null && _bs.getValue(property) instanceof Direction _dir)
+												return _dir;
+											else if (_bs.hasProperty(BlockStateProperties.AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
+											else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
+											return Direction.NORTH;
+										}
+									}.getDirection(BlockPos.containing(x, y, z))) == Direction.NORTH && itemBlockRelZ <= 0 && itemBlockRelX >= -0.1 && itemBlockRelX <= 1.1 && itemBlockRelY < 1 && itemBlockRelY >= -0.3 || (new Object() {
+										public Direction getDirection(BlockPos pos) {
+											BlockState _bs = world.getBlockState(pos);
+											Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
+											if (property != null && _bs.getValue(property) instanceof Direction _dir)
+												return _dir;
+											else if (_bs.hasProperty(BlockStateProperties.AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
+											else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
+											return Direction.NORTH;
+										}
+									}.getDirection(BlockPos.containing(x, y, z))) == Direction.SOUTH && itemBlockRelZ >= 0 && itemBlockRelX >= -0.1 && itemBlockRelX <= 1.1 && itemBlockRelY < 1 && itemBlockRelY >= -0.3 || (new Object() {
+										public Direction getDirection(BlockPos pos) {
+											BlockState _bs = world.getBlockState(pos);
+											Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
+											if (property != null && _bs.getValue(property) instanceof Direction _dir)
+												return _dir;
+											else if (_bs.hasProperty(BlockStateProperties.AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
+											else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
+											return Direction.NORTH;
+										}
+									}.getDirection(BlockPos.containing(x, y, z))) == Direction.EAST && itemBlockRelX >= 0 && itemBlockRelZ >= -0.1 && itemBlockRelZ <= 1.1 && itemBlockRelY < 1 && itemBlockRelY >= -0.3 || (new Object() {
+										public Direction getDirection(BlockPos pos) {
+											BlockState _bs = world.getBlockState(pos);
+											Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
+											if (property != null && _bs.getValue(property) instanceof Direction _dir)
+												return _dir;
+											else if (_bs.hasProperty(BlockStateProperties.AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
+											else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
+											return Direction.NORTH;
+										}
+									}.getDirection(BlockPos.containing(x, y, z))) == Direction.WEST && itemBlockRelX <= 0 && itemBlockRelZ >= -0.1 && itemBlockRelZ <= 1.1 && itemBlockRelY < 1 && itemBlockRelY >= -0.3 || (new Object() {
+										public Direction getDirection(BlockPos pos) {
+											BlockState _bs = world.getBlockState(pos);
+											Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
+											if (property != null && _bs.getValue(property) instanceof Direction _dir)
+												return _dir;
+											else if (_bs.hasProperty(BlockStateProperties.AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
+											else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
+											return Direction.NORTH;
+										}
+									}.getDirection(BlockPos.containing(x, y, z))) == Direction.UP && itemBlockRelY >= 0 && itemBlockRelX >= -0.1 && itemBlockRelX <= 1.1 && itemBlockRelZ >= -0.1 && itemBlockRelZ <= 1.1 || (new Object() {
+										public Direction getDirection(BlockPos pos) {
+											BlockState _bs = world.getBlockState(pos);
+											Property<?> property = _bs.getBlock().getStateDefinition().getProperty("facing");
+											if (property != null && _bs.getValue(property) instanceof Direction _dir)
+												return _dir;
+											else if (_bs.hasProperty(BlockStateProperties.AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.AXIS), Direction.AxisDirection.POSITIVE);
+											else if (_bs.hasProperty(BlockStateProperties.HORIZONTAL_AXIS))
+												return Direction.fromAxisAndDirection(_bs.getValue(BlockStateProperties.HORIZONTAL_AXIS), Direction.AxisDirection.POSITIVE);
+											return Direction.NORTH;
+										}
+									}.getDirection(BlockPos.containing(x, y, z))) == Direction.DOWN && itemBlockRelY <= 0 && itemBlockRelX >= -0.1 && itemBlockRelX <= 1.1 && itemBlockRelZ >= -0.1 && itemBlockRelZ <= 1.1) {
+										categoryToCheck = "washing";
+										c = 1;
+										i = 1;
+										for (int index1 = 0; index1 < 3; index1++) {
+											if (c == 2) {
+												categoryToCheck = "haunting";
+											} else if (c == 3) {
+												categoryToCheck = "blasting";
+											}
+											if (json.has(categoryToCheck)) {
+												if ((categoryToCheck).equals("washing") && isWashing == true || (categoryToCheck).equals("haunting") && isHaunting == true || (categoryToCheck).equals("blasting") && isBlasting == true) {
+													subJsonCategory = json.get(categoryToCheck).getAsJsonObject();
+													for (int index2 = 0; index2 < (int) subJsonCategory.size(); index2++) {
+														if (subJsonCategory.has(("item" + Math.round(i)))) {
+															subJson = subJsonCategory.get(("item" + Math.round(i))).getAsJsonObject();
+															if (subJson.has("item")) {
+																if (!(BuiltInRegistries.ITEM.get(new ResourceLocation(subJson.get("item").getAsString())) == Blocks.AIR.asItem())
+																		&& (entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == BuiltInRegistries.ITEM
+																				.get(new ResourceLocation(subJson.get("item").getAsString()))
+																		&& (new Object() {
+																			public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
+																				AtomicInteger count = new AtomicInteger(0);
+																				BlockEntity _ent = world.getBlockEntity(pos);
+																				RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
+																				if (_ent != null)
+																					count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
+																				return count.get();
+																			}
+																		}.getAmount(world, (BlockPos.containing(x, y, z)), 2) == 0 || new Object() {
+																			public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
+																				AtomicInteger count = new AtomicInteger(0);
+																				BlockEntity _ent = world.getBlockEntity(pos);
+																				RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
+																				if (_ent != null)
+																					count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
+																				return count.get();
+																			}
+																		}.getAmount(world, (BlockPos.containing(x, y, z)), 2) >= 1 && !((new Object() {
+																			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
+																				AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
+																				BlockEntity _ent = world.getBlockEntity(pos);
+																				if (_ent != null)
+																					stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
+																				return stack.get();
+																			}
+																		}.getItemStack(world, BlockPos.containing(x, y, z), 2)).getItem() == Blocks.AIR.asItem())
+																				&& (entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == (new Object() {
+																					public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
+																						AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
+																						BlockEntity _ent = world.getBlockEntity(pos);
+																						if (_ent != null)
+																							stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
+																						return stack.get();
+																					}
+																				}.getItemStack(world, BlockPos.containing(x, y, z), 2)).getItem())) {
+																	tag = subJson.get("item").getAsString();
+																	itemToProcess = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(tag)));
+																	if ((entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == (new Object() {
+																		public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
+																			AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
+																			BlockEntity _ent = world.getBlockEntity(pos);
+																			if (_ent != null)
+																				stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
+																			return stack.get();
+																		}
+																	}.getItemStack(world, BlockPos.containing(x, y, z), 2)).getItem()) {
+																		itemToProcess = (new Object() {
+																			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
+																				AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
+																				BlockEntity _ent = world.getBlockEntity(pos);
+																				if (_ent != null)
+																					stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
+																				return stack.get();
+																			}
+																		}.getItemStack(world, BlockPos.containing(x, y, z), 2));
+																	}
+																	processedItem = entityiterator;
+																	if (subJson.has("amntPerProcess")) {
+																		amntPerProcess = Math.round(subJson.get("amntPerProcess").getAsDouble());
+																	}
+																	if (subJson.has("chanceForSuccess")) {
+																		chanceForSuccess = Math.round(subJson.get("chanceForSuccess").getAsDouble());
+																	}
+																	if (subJson.has("drop")) {
+																		dropItem = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(subJson.get("drop").getAsString())));
+																	}
+																	if (subJson.has("dropratePerOne")) {
+																		dropRatePerOne = Math.round(subJson.get("dropratePerOne").getAsDouble());
+																	}
+																}
+															}
+														}
+														i = i + 1;
+													}
+													i = 1;
+												}
+											}
+											c = c + 1;
+										}
+									}
 								}
 							}
-							if (isHaunting == true) {
-								if ((entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == Blocks.COBBLESTONE.asItem()) {
-									processedItem = entityiterator;
-									processedType = 5;
-									dropItem = new ItemStack(Blocks.NETHERRACK);
-									chanceForSuccess = chanceForSuccess1;
-									amntPerProcess = amntPerProcess1;
-									dropRatePerOne = dropRatePerOne1;
-								} else if ((entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == Blocks.SAND.asItem()) {
-									processedItem = entityiterator;
-									processedType = 6;
-									dropItem = new ItemStack(Blocks.SOUL_SAND);
-									chanceForSuccess = chanceForSuccess1;
-									amntPerProcess = amntPerProcess1;
-									dropRatePerOne = dropRatePerOne1;
-								} else if ((entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == Blocks.DIRT.asItem()) {
-									processedItem = entityiterator;
-									processedType = 7;
-									dropItem = new ItemStack(Blocks.SOUL_SOIL);
-									chanceForSuccess = chanceForSuccess1;
-									amntPerProcess = amntPerProcess1;
-									dropRatePerOne = dropRatePerOne1;
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		if (!(processedItem == null)) {
+			if ((processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getCount() > 0) {
+				if (new Object() {
+					public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
+						AtomicInteger count = new AtomicInteger(0);
+						BlockEntity _ent = world.getBlockEntity(pos);
+						RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
+						if (_ent != null)
+							count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
+						return count.get();
+					}
+				}.getAmount(world, (BlockPos.containing(x, y, z)), 5) > 0 || new Object() {
+					public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
+						AtomicInteger count = new AtomicInteger(0);
+						BlockEntity _ent = world.getBlockEntity(pos);
+						RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
+						if (_ent != null)
+							count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
+						return count.get();
+					}
+				}.getAmount(world, (BlockPos.containing(x, y, z)), 4) > 0) {
+					AmethystTurbinePoweredTickProcessTimerProcedure.execute(world, x, y, z);
+					if (isWashing == true) {
+						if (world instanceof ServerLevel _level)
+							_level.sendParticles(ParticleTypes.CLOUD, (processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), 1, 0.01, 0.01, 0.01, 0.01);
+					} else if (isHaunting == true) {
+						if (world instanceof ServerLevel _level)
+							_level.sendParticles(ParticleTypes.SOUL, (processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), 1, 0.01, 0.01, 0.01, 0.01);
+					} else if (isBlasting == true) {
+						if (world instanceof ServerLevel _level)
+							_level.sendParticles(ParticleTypes.DRIPPING_LAVA, (processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), 1, 0.01, 0.01, 0.01, 0.01);
+					}
+				} else {
+					BlockEntity _ent252 = world.getBlockEntity(BlockPos.containing(x, y, z));
+					if (_ent252 != null) {
+						((RandomizableContainerBlockEntity) _ent252).removeItemNoUpdate(2);
+					}
+					{
+						BlockEntity _ent = world.getBlockEntity(BlockPos.containing(x, y, z));
+						ItemStack stack = itemToProcess;
+						stack.setCount(1);
+						if (_ent != null) {
+							((RandomizableContainerBlockEntity) _ent).setItem(2, stack);
+						}
+					}
+					AmethystTurbinePoweredRestartProcessTimerProcedure.execute(world, x, y, z);
+				}
+			} else {
+				AmethystTurbinePoweredClearProcessTimerProcedure.execute(world, x, y, z);
+			}
+		} else {
+			AmethystTurbinePoweredClearProcessTimerProcedure.execute(world, x, y, z);
+		}
+		if (!(processedItem == null)) {
+			if ((processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getCount() > 0) {
+				if (new Object() {
+					public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
+						AtomicInteger count = new AtomicInteger(0);
+						BlockEntity _ent = world.getBlockEntity(pos);
+						RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
+						if (_ent != null)
+							count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
+						return count.get();
+					}
+				}.getAmount(world, (BlockPos.containing(x, y, z)), 5) <= 0) {
+					if (checkChancePerSingleItem == false && Mth.nextInt(RandomSource.create(), 1, 100) <= chanceForSuccess) {
+						wasSuccess = true;
+					} else {
+						wasSuccess = false;
+					}
+					for (int index3 = 0; index3 < (int) Math.round(Math.min((processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getCount(), Math.round(amntPerProcess))); index3++) {
+						if (checkChancePerSingleItem == false && wasSuccess == true || checkChancePerSingleItem == true && Mth.nextInt(RandomSource.create(), 1, 100) <= chanceForSuccess) {
+							wasSuccess = true;
+							for (int index4 = 0; index4 < (int) Math.round(dropRatePerOne); index4++) {
+								if (world instanceof ServerLevel _level) {
+									ItemEntity entityToSpawn = new ItemEntity(_level, (processedItem.getX() + 0.5), (processedItem.getY() + 0.5), (processedItem.getZ() + 0.5), dropItem);
+									entityToSpawn.setPickUpDelay(10);
+									_level.addFreshEntity(entityToSpawn);
 								}
 							}
 						}
 					}
-				}
-			}
-			if (!(processedItem == null)) {
-				if ((processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getCount() > 0) {
-					if (new Object() {
-						public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
-							AtomicInteger count = new AtomicInteger(0);
-							BlockEntity _ent = world.getBlockEntity(pos);
-							RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
-							if (_ent != null)
-								count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
-							return count.get();
-						}
-					}.getAmount(world, (BlockPos.containing(x, y, z)), 3) > 0) {
-						AmethystTurbinePoweredTickProcessTimerProcedure.execute(world, x, y, z);
+					if (wasSuccess == true) {
 						if (isWashing == true) {
-							if (world instanceof ServerLevel _level)
-								_level.sendParticles(ParticleTypes.CLOUD, (processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), 1, 0.01, 0.01, 0.01, 0.01);
+							if (world instanceof Level _level) {
+								if (!_level.isClientSide()) {
+									_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.boat.paddle_water")), SoundSource.BLOCKS,
+											(float) 0.5, 1);
+								} else {
+									_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.boat.paddle_water")), SoundSource.BLOCKS, (float) 0.5, 1,
+											false);
+								}
+							}
 						} else if (isHaunting == true) {
-							if (world instanceof ServerLevel _level)
-								_level.sendParticles(ParticleTypes.SOUL, (processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), 1, 0.01, 0.01, 0.01, 0.01);
+							if (world instanceof Level _level) {
+								if (!_level.isClientSide()) {
+									_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.blastfurnace.fire_crackle")),
+											SoundSource.BLOCKS, (float) 0.3, 1);
+								} else {
+									_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.blastfurnace.fire_crackle")), SoundSource.BLOCKS,
+											(float) 0.3, 1, false);
+								}
+							}
+							if (world instanceof Level _level) {
+								if (!_level.isClientSide()) {
+									_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("particle.soul_escape")), SoundSource.BLOCKS,
+											(float) 0.5, 1);
+								} else {
+									_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("particle.soul_escape")), SoundSource.BLOCKS, (float) 0.5, 1,
+											false);
+								}
+							}
 						} else if (isBlasting == true) {
-							if (world instanceof ServerLevel _level)
-								_level.sendParticles(ParticleTypes.DRIPPING_LAVA, (processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), 1, 0.01, 0.01, 0.01, 0.01);
+							if (world instanceof Level _level) {
+								if (!_level.isClientSide()) {
+									_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.blastfurnace.fire_crackle")),
+											SoundSource.BLOCKS, (float) 0.3, 1);
+								} else {
+									_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.blastfurnace.fire_crackle")), SoundSource.BLOCKS,
+											(float) 0.3, 1, false);
+								}
+							}
 						}
 					} else {
-						AmethystTurbinePoweredRestartProcessTimerProcedure.execute(world, x, y, z);
+						if (isWashing == true) {
+							if (world instanceof Level _level) {
+								if (!_level.isClientSide()) {
+									_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.gravel.step")), SoundSource.BLOCKS,
+											(float) 0.5, 1);
+								} else {
+									_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.gravel.step")), SoundSource.BLOCKS, (float) 0.5, 1,
+											false);
+								}
+							}
+						} else if (isHaunting == true) {
+							if (world instanceof Level _level) {
+								if (!_level.isClientSide()) {
+									_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.soul_soil.break")), SoundSource.BLOCKS,
+											(float) 0.5, 1);
+								} else {
+									_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.soul_soil.break")), SoundSource.BLOCKS, (float) 0.5, 1,
+											false);
+								}
+							}
+						} else if (isBlasting == true) {
+							if (world instanceof Level _level) {
+								if (!_level.isClientSide()) {
+									_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.blaze.burn")), SoundSource.BLOCKS,
+											(float) 0.5, 1);
+								} else {
+									_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.blaze.burn")), SoundSource.BLOCKS, (float) 0.5, 1,
+											false);
+								}
+							}
+						}
 					}
-				}
-			}
-			if (!(processedItem == null)) {
-				if ((processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getCount() > 0) {
-					if (new Object() {
-						public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
-							AtomicInteger count = new AtomicInteger(0);
-							BlockEntity _ent = world.getBlockEntity(pos);
-							RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
-							if (_ent != null)
-								count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
-							return count.get();
-						}
-					}.getAmount(world, (BlockPos.containing(x, y, z)), 3) <= 0) {
-						if (checkChancePerSingleItem == false && Mth.nextInt(RandomSource.create(), 1, 100) <= chanceForSuccess) {
-							wasSuccess = true;
-						} else {
-							wasSuccess = false;
-						}
-						for (int index1 = 0; index1 < (int) Math.min((processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getCount(), amntPerProcess); index1++) {
-							if (checkChancePerSingleItem == false && wasSuccess == true || checkChancePerSingleItem == true && Mth.nextInt(RandomSource.create(), 1, 100) <= chanceForSuccess) {
-								wasSuccess = true;
-								for (int index2 = 0; index2 < (int) dropRatePerOne; index2++) {
-									if (world instanceof ServerLevel _level) {
-										ItemEntity entityToSpawn = new ItemEntity(_level, (processedItem.getX() + 0.5), (processedItem.getY() + 0.5), (processedItem.getZ() + 0.5), dropItem);
-										entityToSpawn.setPickUpDelay(10);
-										_level.addFreshEntity(entityToSpawn);
-									}
-								}
-							}
-						}
-						if (wasSuccess == true) {
-							if (isWashing == true) {
-								if (world instanceof Level _level) {
-									if (!_level.isClientSide()) {
-										_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.boat.paddle_water")),
-												SoundSource.BLOCKS, (float) 0.5, 1);
-									} else {
-										_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.boat.paddle_water")), SoundSource.BLOCKS,
-												(float) 0.5, 1, false);
-									}
-								}
-							} else if (isHaunting == true) {
-								if (world instanceof Level _level) {
-									if (!_level.isClientSide()) {
-										_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.blastfurnace.fire_crackle")),
-												SoundSource.BLOCKS, (float) 0.3, 1);
-									} else {
-										_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.blastfurnace.fire_crackle")), SoundSource.BLOCKS,
-												(float) 0.3, 1, false);
-									}
-								}
-								if (world instanceof Level _level) {
-									if (!_level.isClientSide()) {
-										_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("particle.soul_escape")), SoundSource.BLOCKS,
-												(float) 0.5, 1);
-									} else {
-										_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("particle.soul_escape")), SoundSource.BLOCKS, (float) 0.5, 1,
-												false);
-									}
-								}
-							} else if (isBlasting == true) {
-								if (world instanceof Level _level) {
-									if (!_level.isClientSide()) {
-										_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.blastfurnace.fire_crackle")),
-												SoundSource.BLOCKS, (float) 0.3, 1);
-									} else {
-										_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.blastfurnace.fire_crackle")), SoundSource.BLOCKS,
-												(float) 0.3, 1, false);
-									}
-								}
-							}
-						} else {
-							if (isWashing == true) {
-								if (world instanceof Level _level) {
-									if (!_level.isClientSide()) {
-										_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.gravel.step")), SoundSource.BLOCKS,
-												(float) 0.5, 1);
-									} else {
-										_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.gravel.step")), SoundSource.BLOCKS, (float) 0.5, 1,
-												false);
-									}
-								}
-							} else if (isHaunting == true) {
-								if (world instanceof Level _level) {
-									if (!_level.isClientSide()) {
-										_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.soul_soil.break")),
-												SoundSource.BLOCKS, (float) 0.5, 1);
-									} else {
-										_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("block.soul_soil.break")), SoundSource.BLOCKS, (float) 0.5,
-												1, false);
-									}
-								}
-							} else if (isBlasting == true) {
-								if (world instanceof Level _level) {
-									if (!_level.isClientSide()) {
-										_level.playSound(null, BlockPos.containing(processedItem.getX(), processedItem.getY(), processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.blaze.burn")), SoundSource.BLOCKS,
-												(float) 0.5, 1);
-									} else {
-										_level.playLocalSound((processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation("entity.blaze.burn")), SoundSource.BLOCKS, (float) 0.5, 1,
-												false);
-									}
-								}
-							}
-						}
-						(processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).shrink((int) Math.min((processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getCount(), amntPerProcess));
-						AmethystTurbinePoweredRestartProcessTimerProcedure.execute(world, x, y, z);
-					}
+					(processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY)
+							.shrink((int) Math.round(Math.min((processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getCount(), Math.round(amntPerProcess))));
 				}
 			}
 		}
