@@ -31,10 +31,12 @@ import net.minecraft.client.Minecraft;
 
 import net.haipadev.washedminerals.init.WashedMineralsModItems;
 import net.haipadev.washedminerals.init.WashedMineralsModBlocks;
+import net.haipadev.washedminerals.WashedMineralsMod;
 
 import java.util.stream.Collectors;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Set;
 import java.util.Map;
 import java.util.List;
 import java.util.Comparator;
@@ -44,6 +46,8 @@ import java.io.FileReader;
 import java.io.File;
 import java.io.BufferedReader;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonElement;
 import com.google.gson.Gson;
 
 public class AmethystTurbinePoweredUpdateTickProcedure {
@@ -51,13 +55,24 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 		BlockState block_powering = Blocks.AIR.defaultBlockState();
 		Entity processedItem = null;
 		File file = new File("");
-		com.google.gson.JsonObject json = new com.google.gson.JsonObject();
-		com.google.gson.JsonObject subJsonCategory = new com.google.gson.JsonObject();
-		com.google.gson.JsonObject subJson = new com.google.gson.JsonObject();
 		String tag = "";
 		String categoryToCheck = "";
 		ItemStack itemToProcess = ItemStack.EMPTY;
 		ItemStack dropItem = ItemStack.EMPTY;
+		boolean checkChancePerSingleItem = false;
+		boolean isValidProcessingSetup = false;
+		boolean isHaunting = false;
+		boolean isWashing = false;
+		boolean found_powersource = false;
+		boolean strong_powered = false;
+		boolean wasSuccess = false;
+		boolean isBlasting = false;
+		boolean deathEnabled = false;
+		com.google.gson.JsonObject json = new com.google.gson.JsonObject();
+		com.google.gson.JsonObject subJsonCategory = new com.google.gson.JsonObject();
+		com.google.gson.JsonObject subJson = new com.google.gson.JsonObject();
+		com.google.gson.JsonObject dropsJson = new com.google.gson.JsonObject();
+		com.google.gson.JsonObject dropSubJson = new com.google.gson.JsonObject();
 		double itemBlockRelX = 0;
 		double itemBlockRelZ = 0;
 		double itemBlockRelY = 0;
@@ -73,15 +88,7 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 		double amntPerProcess = 0;
 		double chanceForSuccess = 0;
 		double dropRatePerOne = 0;
-		boolean checkChancePerSingleItem = false;
-		boolean isValidProcessingSetup = false;
-		boolean isHaunting = false;
-		boolean isWashing = false;
-		boolean found_powersource = false;
-		boolean strong_powered = false;
-		boolean wasSuccess = false;
-		boolean isBlasting = false;
-		boolean deathEnabled = false;
+		double d = 0;
 		AmethystTurbinePoweredLoopSoundProcedure.execute(world, x, y, z);
 		chanceForDeath = 80;
 		amntPerProcess = 1;
@@ -1170,63 +1177,160 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 										}
 									}.getDirection(BlockPos.containing(x, y, z))) == Direction.DOWN && itemBlockRelY <= 0 && itemBlockRelX >= -0.1 && itemBlockRelX <= 1.1 && itemBlockRelZ >= -0.1 && itemBlockRelZ <= 1.1) {
 										categoryToCheck = "washing";
-										c = 1;
-										i = 1;
+										c = 0;
+										i = 0;
 										for (int index1 = 0; index1 < 3; index1++) {
-											if (c == 2) {
+											if (c == 1) {
 												categoryToCheck = "haunting";
-											} else if (c == 3) {
+											} else if (c == 2) {
 												categoryToCheck = "blasting";
 											}
 											if (json.has(categoryToCheck)) {
 												if ((categoryToCheck).equals("washing") && isWashing == true || (categoryToCheck).equals("haunting") && isHaunting == true || (categoryToCheck).equals("blasting") && isBlasting == true) {
 													subJsonCategory = json.get(categoryToCheck).getAsJsonObject();
 													for (int index2 = 0; index2 < (int) subJsonCategory.size(); index2++) {
-														if (subJsonCategory.has(("item" + Math.round(i)))) {
-															subJson = subJsonCategory.get(("item" + Math.round(i))).getAsJsonObject();
-															if (subJson.has("item")) {
-																if (!(BuiltInRegistries.ITEM.get(new ResourceLocation(subJson.get("item").getAsString())) == Blocks.AIR.asItem())
-																		&& (entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == BuiltInRegistries.ITEM
-																				.get(new ResourceLocation(subJson.get("item").getAsString()))
-																		&& (new Object() {
-																			public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
-																				AtomicInteger count = new AtomicInteger(0);
-																				BlockEntity _ent = world.getBlockEntity(pos);
-																				RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
-																				if (_ent != null)
-																					count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
-																				return count.get();
+														if (subJsonCategory.has((new Object() {
+															public String getKeyByIndex(JsonObject jsonObject, double _index) {
+																int index = (int) _index;
+																Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
+																if (index >= 0 && index < entries.size()) {
+																	int currentIndex = 0;
+																	for (Map.Entry<String, JsonElement> entry : entries) {
+																		if (currentIndex == index) {
+																			String targetKey = entry.getKey();
+																			return targetKey;
+																		}
+																		currentIndex++;
+																	}
+																} else if (index < 0 && Math.abs(index) <= entries.size()) {
+																	int currentIndex = entries.size() - 1;
+																	for (Map.Entry<String, JsonElement> entry : entries) {
+																		if (currentIndex == Math.abs(index) - 1) {
+																			String targetKey = entry.getKey();
+																			return targetKey;
+																		}
+																		currentIndex--;
+																	}
+																}
+																if (index >= 0) {
+																	WashedMineralsMod.LOGGER.error(index + " is outside the bounds of the json!");
+																} else {
+																	WashedMineralsMod.LOGGER.error(index + " [" + (Math.abs(index) - 1) + "]" + " is outside the bounds of the json!");
+																}
+																return "";
+															}
+														}.getKeyByIndex(subJsonCategory, i)))) {
+															subJson = subJsonCategory.get((new Object() {
+																public String getKeyByIndex(JsonObject jsonObject, double _index) {
+																	int index = (int) _index;
+																	Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
+																	if (index >= 0 && index < entries.size()) {
+																		int currentIndex = 0;
+																		for (Map.Entry<String, JsonElement> entry : entries) {
+																			if (currentIndex == index) {
+																				String targetKey = entry.getKey();
+																				return targetKey;
 																			}
-																		}.getAmount(world, (BlockPos.containing(x, y, z)), 2) == 0 || new Object() {
-																			public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
-																				AtomicInteger count = new AtomicInteger(0);
-																				BlockEntity _ent = world.getBlockEntity(pos);
-																				RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
-																				if (_ent != null)
-																					count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
-																				return count.get();
+																			currentIndex++;
+																		}
+																	} else if (index < 0 && Math.abs(index) <= entries.size()) {
+																		int currentIndex = entries.size() - 1;
+																		for (Map.Entry<String, JsonElement> entry : entries) {
+																			if (currentIndex == Math.abs(index) - 1) {
+																				String targetKey = entry.getKey();
+																				return targetKey;
 																			}
-																		}.getAmount(world, (BlockPos.containing(x, y, z)), 2) >= 1 && !((new Object() {
-																			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-																				AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
-																				BlockEntity _ent = world.getBlockEntity(pos);
-																				if (_ent != null)
-																					stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
-																				return stack.get();
+																			currentIndex--;
+																		}
+																	}
+																	if (index >= 0) {
+																		WashedMineralsMod.LOGGER.error(index + " is outside the bounds of the json!");
+																	} else {
+																		WashedMineralsMod.LOGGER.error(index + " [" + (Math.abs(index) - 1) + "]" + " is outside the bounds of the json!");
+																	}
+																	return "";
+																}
+															}.getKeyByIndex(subJsonCategory, i))).getAsJsonObject();
+															if (!(BuiltInRegistries.ITEM.get(new ResourceLocation((new Object() {
+																public String getKeyByIndex(JsonObject jsonObject, double _index) {
+																	int index = (int) _index;
+																	Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
+																	if (index >= 0 && index < entries.size()) {
+																		int currentIndex = 0;
+																		for (Map.Entry<String, JsonElement> entry : entries) {
+																			if (currentIndex == index) {
+																				String targetKey = entry.getKey();
+																				return targetKey;
 																			}
-																		}.getItemStack(world, BlockPos.containing(x, y, z), 2)).getItem() == Blocks.AIR.asItem())
-																				&& (entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == (new Object() {
-																					public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-																						AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
-																						BlockEntity _ent = world.getBlockEntity(pos);
-																						if (_ent != null)
-																							stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
-																						return stack.get();
+																			currentIndex++;
+																		}
+																	} else if (index < 0 && Math.abs(index) <= entries.size()) {
+																		int currentIndex = entries.size() - 1;
+																		for (Map.Entry<String, JsonElement> entry : entries) {
+																			if (currentIndex == Math.abs(index) - 1) {
+																				String targetKey = entry.getKey();
+																				return targetKey;
+																			}
+																			currentIndex--;
+																		}
+																	}
+																	if (index >= 0) {
+																		WashedMineralsMod.LOGGER.error(index + " is outside the bounds of the json!");
+																	} else {
+																		WashedMineralsMod.LOGGER.error(index + " [" + (Math.abs(index) - 1) + "]" + " is outside the bounds of the json!");
+																	}
+																	return "";
+																}
+															}.getKeyByIndex(subJsonCategory, i)))) == Blocks.AIR.asItem())
+																	&& (entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == BuiltInRegistries.ITEM.get(new ResourceLocation((new Object() {
+																		public String getKeyByIndex(JsonObject jsonObject, double _index) {
+																			int index = (int) _index;
+																			Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
+																			if (index >= 0 && index < entries.size()) {
+																				int currentIndex = 0;
+																				for (Map.Entry<String, JsonElement> entry : entries) {
+																					if (currentIndex == index) {
+																						String targetKey = entry.getKey();
+																						return targetKey;
 																					}
-																				}.getItemStack(world, BlockPos.containing(x, y, z), 2)).getItem())) {
-																	tag = subJson.get("item").getAsString();
-																	itemToProcess = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(tag)));
-																	if ((entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == (new Object() {
+																					currentIndex++;
+																				}
+																			} else if (index < 0 && Math.abs(index) <= entries.size()) {
+																				int currentIndex = entries.size() - 1;
+																				for (Map.Entry<String, JsonElement> entry : entries) {
+																					if (currentIndex == Math.abs(index) - 1) {
+																						String targetKey = entry.getKey();
+																						return targetKey;
+																					}
+																					currentIndex--;
+																				}
+																			}
+																			if (index >= 0) {
+																				WashedMineralsMod.LOGGER.error(index + " is outside the bounds of the json!");
+																			} else {
+																				WashedMineralsMod.LOGGER.error(index + " [" + (Math.abs(index) - 1) + "]" + " is outside the bounds of the json!");
+																			}
+																			return "";
+																		}
+																	}.getKeyByIndex(subJsonCategory, i)))) && (new Object() {
+																		public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
+																			AtomicInteger count = new AtomicInteger(0);
+																			BlockEntity _ent = world.getBlockEntity(pos);
+																			RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
+																			if (_ent != null)
+																				count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
+																			return count.get();
+																		}
+																	}.getAmount(world, (BlockPos.containing(x, y, z)), 2) == 0 || new Object() {
+																		public int getAmount(LevelAccessor world, BlockPos pos, int slotid) {
+																			AtomicInteger count = new AtomicInteger(0);
+																			BlockEntity _ent = world.getBlockEntity(pos);
+																			RandomizableContainerBlockEntity ent = (RandomizableContainerBlockEntity) _ent;
+																			if (_ent != null)
+																				count.set((int) ent.countItem(ent.getItem(slotid).getItem()));
+																			return count.get();
+																		}
+																	}.getAmount(world, (BlockPos.containing(x, y, z)), 2) >= 1 && !((new Object() {
 																		public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
 																			AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
 																			BlockEntity _ent = world.getBlockEntity(pos);
@@ -1234,36 +1338,108 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 																				stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
 																			return stack.get();
 																		}
-																	}.getItemStack(world, BlockPos.containing(x, y, z), 2)).getItem()) {
-																		itemToProcess = (new Object() {
-																			public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
-																				AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
-																				BlockEntity _ent = world.getBlockEntity(pos);
-																				if (_ent != null)
-																					stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
-																				return stack.get();
+																	}.getItemStack(world, BlockPos.containing(x, y, z), 2)).getItem() == Blocks.AIR.asItem())
+																			&& (entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == (new Object() {
+																				public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
+																					AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
+																					BlockEntity _ent = world.getBlockEntity(pos);
+																					if (_ent != null)
+																						stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
+																					return stack.get();
+																				}
+																			}.getItemStack(world, BlockPos.containing(x, y, z), 2)).getItem())) {
+																tag = new Object() {
+																	public String getKeyByIndex(JsonObject jsonObject, double _index) {
+																		int index = (int) _index;
+																		Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
+																		if (index >= 0 && index < entries.size()) {
+																			int currentIndex = 0;
+																			for (Map.Entry<String, JsonElement> entry : entries) {
+																				if (currentIndex == index) {
+																					String targetKey = entry.getKey();
+																					return targetKey;
+																				}
+																				currentIndex++;
 																			}
-																		}.getItemStack(world, BlockPos.containing(x, y, z), 2));
+																		} else if (index < 0 && Math.abs(index) <= entries.size()) {
+																			int currentIndex = entries.size() - 1;
+																			for (Map.Entry<String, JsonElement> entry : entries) {
+																				if (currentIndex == Math.abs(index) - 1) {
+																					String targetKey = entry.getKey();
+																					return targetKey;
+																				}
+																				currentIndex--;
+																			}
+																		}
+																		if (index >= 0) {
+																			WashedMineralsMod.LOGGER.error(index + " is outside the bounds of the json!");
+																		} else {
+																			WashedMineralsMod.LOGGER.error(index + " [" + (Math.abs(index) - 1) + "]" + " is outside the bounds of the json!");
+																		}
+																		return "";
 																	}
-																	processedItem = entityiterator;
-																	if (subJson.has("amntPerProcess")) {
-																		amntPerProcess = Math.round(subJson.get("amntPerProcess").getAsDouble());
+																}.getKeyByIndex(subJsonCategory, i);
+																itemToProcess = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(tag)));
+																if ((entityiterator instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getItem() == (new Object() {
+																	public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
+																		AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
+																		BlockEntity _ent = world.getBlockEntity(pos);
+																		if (_ent != null)
+																			stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
+																		return stack.get();
 																	}
-																	if (subJson.has("chanceForSuccess")) {
-																		chanceForSuccess = Math.round(subJson.get("chanceForSuccess").getAsDouble());
-																	}
-																	if (subJson.has("drop")) {
-																		dropItem = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation(subJson.get("drop").getAsString())));
-																	}
-																	if (subJson.has("dropratePerOne")) {
-																		dropRatePerOne = Math.round(subJson.get("dropratePerOne").getAsDouble());
-																	}
+																}.getItemStack(world, BlockPos.containing(x, y, z), 2)).getItem()) {
+																	itemToProcess = (new Object() {
+																		public ItemStack getItemStack(LevelAccessor world, BlockPos pos, int slotid) {
+																			AtomicReference<ItemStack> stack = new AtomicReference<>(ItemStack.EMPTY);
+																			BlockEntity _ent = world.getBlockEntity(pos);
+																			if (_ent != null)
+																				stack.set(((RandomizableContainerBlockEntity) _ent).getItem(slotid).copy());
+																			return stack.get();
+																		}
+																	}.getItemStack(world, BlockPos.containing(x, y, z), 2));
 																}
+																processedItem = entityiterator;
+																if (subJson.has("amntPerProcess")) {
+																	amntPerProcess = Math.round(subJson.get("amntPerProcess").getAsDouble());
+																}
+																subJson = subJsonCategory.get((new Object() {
+																	public String getKeyByIndex(JsonObject jsonObject, double _index) {
+																		int index = (int) _index;
+																		Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
+																		if (index >= 0 && index < entries.size()) {
+																			int currentIndex = 0;
+																			for (Map.Entry<String, JsonElement> entry : entries) {
+																				if (currentIndex == index) {
+																					String targetKey = entry.getKey();
+																					return targetKey;
+																				}
+																				currentIndex++;
+																			}
+																		} else if (index < 0 && Math.abs(index) <= entries.size()) {
+																			int currentIndex = entries.size() - 1;
+																			for (Map.Entry<String, JsonElement> entry : entries) {
+																				if (currentIndex == Math.abs(index) - 1) {
+																					String targetKey = entry.getKey();
+																					return targetKey;
+																				}
+																				currentIndex--;
+																			}
+																		}
+																		if (index >= 0) {
+																			WashedMineralsMod.LOGGER.error(index + " is outside the bounds of the json!");
+																		} else {
+																			WashedMineralsMod.LOGGER.error(index + " [" + (Math.abs(index) - 1) + "]" + " is outside the bounds of the json!");
+																		}
+																		return "";
+																	}
+																}.getKeyByIndex(subJsonCategory, i))).getAsJsonObject();
+																dropsJson = subJson.get("drops").getAsJsonObject();
 															}
 														}
 														i = i + 1;
 													}
-													i = 1;
+													i = 0;
 												}
 											}
 											c = c + 1;
@@ -1311,9 +1487,9 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 							_level.sendParticles(ParticleTypes.DRIPPING_LAVA, (processedItem.getX()), (processedItem.getY()), (processedItem.getZ()), 1, 0.01, 0.01, 0.01, 0.01);
 					}
 				} else {
-					BlockEntity _ent252 = world.getBlockEntity(BlockPos.containing(x, y, z));
-					if (_ent252 != null) {
-						((RandomizableContainerBlockEntity) _ent252).removeItemNoUpdate(2);
+					BlockEntity _ent249 = world.getBlockEntity(BlockPos.containing(x, y, z));
+					if (_ent249 != null) {
+						((RandomizableContainerBlockEntity) _ent249).removeItemNoUpdate(2);
 					}
 					{
 						BlockEntity _ent = world.getBlockEntity(BlockPos.containing(x, y, z));
@@ -1343,22 +1519,129 @@ public class AmethystTurbinePoweredUpdateTickProcedure {
 						return count.get();
 					}
 				}.getAmount(world, (BlockPos.containing(x, y, z)), 5) <= 0) {
-					if (checkChancePerSingleItem == false && Mth.nextInt(RandomSource.create(), 1, 100) <= chanceForSuccess) {
-						wasSuccess = true;
-					} else {
-						wasSuccess = false;
-					}
-					for (int index3 = 0; index3 < (int) Math.round(Math.min((processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getCount(), Math.round(amntPerProcess))); index3++) {
-						if (checkChancePerSingleItem == false && wasSuccess == true || checkChancePerSingleItem == true && Mth.nextInt(RandomSource.create(), 1, 100) <= chanceForSuccess) {
-							wasSuccess = true;
-							for (int index4 = 0; index4 < (int) Math.round(dropRatePerOne); index4++) {
-								if (world instanceof ServerLevel _level) {
-									ItemEntity entityToSpawn = new ItemEntity(_level, (processedItem.getX() + 0.5), (processedItem.getY() + 0.5), (processedItem.getZ() + 0.5), dropItem);
-									entityToSpawn.setPickUpDelay(10);
-									_level.addFreshEntity(entityToSpawn);
+					d = 0;
+					for (int index3 = 0; index3 < (int) dropsJson.size(); index3++) {
+						if (dropsJson.has((new Object() {
+							public String getKeyByIndex(JsonObject jsonObject, double _index) {
+								int index = (int) _index;
+								Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
+								if (index >= 0 && index < entries.size()) {
+									int currentIndex = 0;
+									for (Map.Entry<String, JsonElement> entry : entries) {
+										if (currentIndex == index) {
+											String targetKey = entry.getKey();
+											return targetKey;
+										}
+										currentIndex++;
+									}
+								} else if (index < 0 && Math.abs(index) <= entries.size()) {
+									int currentIndex = entries.size() - 1;
+									for (Map.Entry<String, JsonElement> entry : entries) {
+										if (currentIndex == Math.abs(index) - 1) {
+											String targetKey = entry.getKey();
+											return targetKey;
+										}
+										currentIndex--;
+									}
+								}
+								if (index >= 0) {
+									WashedMineralsMod.LOGGER.error(index + " is outside the bounds of the json!");
+								} else {
+									WashedMineralsMod.LOGGER.error(index + " [" + (Math.abs(index) - 1) + "]" + " is outside the bounds of the json!");
+								}
+								return "";
+							}
+						}.getKeyByIndex(dropsJson, d)))) {
+							dropSubJson = dropsJson.get((new Object() {
+								public String getKeyByIndex(JsonObject jsonObject, double _index) {
+									int index = (int) _index;
+									Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
+									if (index >= 0 && index < entries.size()) {
+										int currentIndex = 0;
+										for (Map.Entry<String, JsonElement> entry : entries) {
+											if (currentIndex == index) {
+												String targetKey = entry.getKey();
+												return targetKey;
+											}
+											currentIndex++;
+										}
+									} else if (index < 0 && Math.abs(index) <= entries.size()) {
+										int currentIndex = entries.size() - 1;
+										for (Map.Entry<String, JsonElement> entry : entries) {
+											if (currentIndex == Math.abs(index) - 1) {
+												String targetKey = entry.getKey();
+												return targetKey;
+											}
+											currentIndex--;
+										}
+									}
+									if (index >= 0) {
+										WashedMineralsMod.LOGGER.error(index + " is outside the bounds of the json!");
+									} else {
+										WashedMineralsMod.LOGGER.error(index + " [" + (Math.abs(index) - 1) + "]" + " is outside the bounds of the json!");
+									}
+									return "";
+								}
+							}.getKeyByIndex(dropsJson, d))).getAsJsonObject();
+							dropItem = new ItemStack(BuiltInRegistries.ITEM.get(new ResourceLocation((new Object() {
+								public String getKeyByIndex(JsonObject jsonObject, double _index) {
+									int index = (int) _index;
+									Set<Map.Entry<String, JsonElement>> entries = jsonObject.entrySet();
+									if (index >= 0 && index < entries.size()) {
+										int currentIndex = 0;
+										for (Map.Entry<String, JsonElement> entry : entries) {
+											if (currentIndex == index) {
+												String targetKey = entry.getKey();
+												return targetKey;
+											}
+											currentIndex++;
+										}
+									} else if (index < 0 && Math.abs(index) <= entries.size()) {
+										int currentIndex = entries.size() - 1;
+										for (Map.Entry<String, JsonElement> entry : entries) {
+											if (currentIndex == Math.abs(index) - 1) {
+												String targetKey = entry.getKey();
+												return targetKey;
+											}
+											currentIndex--;
+										}
+									}
+									if (index >= 0) {
+										WashedMineralsMod.LOGGER.error(index + " is outside the bounds of the json!");
+									} else {
+										WashedMineralsMod.LOGGER.error(index + " [" + (Math.abs(index) - 1) + "]" + " is outside the bounds of the json!");
+									}
+									return "";
+								}
+							}.getKeyByIndex(dropsJson, d)))));
+							if (dropSubJson.has("chanceForSuccess")) {
+								chanceForSuccess = dropSubJson.get("chanceForSuccess").getAsDouble();
+							}
+							if (dropSubJson.has("checkChancePerSingleItem")) {
+								checkChancePerSingleItem = dropSubJson.get("checkChancePerSingleItem").getAsBoolean();
+							}
+							if (dropSubJson.has("dropratePerOne")) {
+								dropRatePerOne = dropSubJson.get("dropratePerOne").getAsDouble();
+							}
+							if (checkChancePerSingleItem == false && Mth.nextInt(RandomSource.create(), 1, 100) <= chanceForSuccess) {
+								wasSuccess = true;
+							} else {
+								wasSuccess = false;
+							}
+							for (int index4 = 0; index4 < (int) Math.round(Math.min((processedItem instanceof ItemEntity _itemEnt ? _itemEnt.getItem() : ItemStack.EMPTY).getCount(), Math.round(amntPerProcess))); index4++) {
+								if (checkChancePerSingleItem == false && wasSuccess == true || checkChancePerSingleItem == true && Mth.nextInt(RandomSource.create(), 1, 100) <= chanceForSuccess) {
+									wasSuccess = true;
+									for (int index5 = 0; index5 < (int) Math.round(dropRatePerOne); index5++) {
+										if (world instanceof ServerLevel _level) {
+											ItemEntity entityToSpawn = new ItemEntity(_level, (processedItem.getX() + 0.5), (processedItem.getY() + 0.5), (processedItem.getZ() + 0.5), dropItem);
+											entityToSpawn.setPickUpDelay(10);
+											_level.addFreshEntity(entityToSpawn);
+										}
+									}
 								}
 							}
 						}
+						d = d + 1;
 					}
 					if (wasSuccess == true) {
 						if (isWashing == true) {
