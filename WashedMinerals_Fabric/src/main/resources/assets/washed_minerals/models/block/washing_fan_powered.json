@@ -1,0 +1,11 @@
+{
+  "parent": "washed_minerals:custom/washing_fan_powered",
+  "textures": {
+    "all": "washed_minerals:block/washing_fan_side_powered",
+    "particle": "washed_minerals:block/washing_fan_side_powered",
+    "casing powered": "washed_minerals:block/washing_fan_texture_powered",
+    "propeller": "washed_minerals:block/amethyst_propeller",
+    "redstone 8x8": "washed_minerals:block/redstone_block_texture_8x8"
+  },
+  "render_type": "cutout"
+}

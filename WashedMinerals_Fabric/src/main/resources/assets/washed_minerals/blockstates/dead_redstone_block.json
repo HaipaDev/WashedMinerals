@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "washed_minerals:block/dead_redstone_block"
+    }
+  }
+}

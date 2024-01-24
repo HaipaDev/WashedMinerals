@@ -1,0 +1,12 @@
+{
+  "washing_fan": {
+    "category": "block",
+    "subtitle": "subtitles.washing_fan",
+    "sounds": [
+      {
+        "name": "washed_minerals:fan",
+        "stream": false
+      }
+    ]
+  }
+}

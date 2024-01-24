@@ -1,0 +1,48 @@
+{
+  "_fv": 47,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "",
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "REDSTONE",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "Blocks.AMETHYST_CLUSTER"
+      },
+      {
+        "value": "Items.COPPER_INGOT"
+      },
+      {
+        "value": "Blocks.AMETHYST_CLUSTER"
+      },
+      {
+        "value": "Items.COPPER_INGOT"
+      },
+      {
+        "value": "Items.DIAMOND"
+      },
+      {
+        "value": "Items.COPPER_INGOT"
+      },
+      {
+        "value": "Blocks.AMETHYST_CLUSTER"
+      },
+      {
+        "value": "Items.COPPER_INGOT"
+      },
+      {
+        "value": "Blocks.AMETHYST_CLUSTER"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:AmethystPropeller"
+    },
+    "name": "amethyst_propeller_recipe",
+    "namespace": "mod"
+  }
+}

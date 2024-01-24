@@ -1,0 +1,48 @@
+{
+  "_fv": 47,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "",
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": ""
+      },
+      {
+        "value": "Blocks.IRON_BARS"
+      },
+      {
+        "value": ""
+      },
+      {
+        "value": "Blocks.IRON_BLOCK"
+      },
+      {
+        "value": "CUSTOM:AmethystPropeller"
+      },
+      {
+        "value": "Blocks.IRON_BLOCK"
+      },
+      {
+        "value": "Blocks.REDSTONE_BLOCK"
+      },
+      {
+        "value": "Blocks.IRON_BARS"
+      },
+      {
+        "value": "Blocks.REDSTONE_BLOCK"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:WashingFan"
+    },
+    "name": "washing_fan_recipe",
+    "namespace": "mod"
+  }
+}

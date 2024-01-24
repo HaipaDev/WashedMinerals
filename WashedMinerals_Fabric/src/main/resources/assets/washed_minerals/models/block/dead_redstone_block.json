@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "washed_minerals:block/dead_redstone_block",
+    "up": "washed_minerals:block/dead_redstone_block",
+    "north": "washed_minerals:block/dead_redstone_block",
+    "east": "washed_minerals:block/dead_redstone_block",
+    "south": "washed_minerals:block/dead_redstone_block",
+    "west": "washed_minerals:block/dead_redstone_block",
+    "particle": "washed_minerals:block/dead_redstone_block"
+  },
+  "render_type": "solid"
+}

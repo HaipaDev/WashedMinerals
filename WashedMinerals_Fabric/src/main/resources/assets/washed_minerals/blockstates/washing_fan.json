@@ -1,0 +1,27 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "washed_minerals:block/washing_fan"
+    },
+    "facing=east": {
+      "model": "washed_minerals:block/washing_fan",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "washed_minerals:block/washing_fan",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "washed_minerals:block/washing_fan",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "washed_minerals:block/washing_fan",
+      "x": 270
+    },
+    "facing=down": {
+      "model": "washed_minerals:block/washing_fan",
+      "x": 90
+    }
+  }
+}

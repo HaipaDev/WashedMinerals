@@ -1,0 +1,393 @@
+{
+  "mod_elements": [
+    {
+      "name": "WashingFanUpdateTick",
+      "type": "procedure",
+      "sortid": 2,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "washing_fan_update_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/WashingFanUpdateTickProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WashingFan",
+      "type": "block",
+      "sortid": 1,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "washing_fan",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/block/WashingFanBlock.java",
+          "src/main/resources/assets/washed_minerals/blockstates/washing_fan.json",
+          "src/main/resources/assets/washed_minerals/models/block/washing_fan.json",
+          "src/main/java/net/haipadev/washedminerals/block/entity/WashingFanBlockEntity.java",
+          "src/main/resources/assets/washed_minerals/models/item/washing_fan.json"
+        ]
+      }
+    },
+    {
+      "name": "AmethystPropeller",
+      "type": "item",
+      "sortid": 3,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_propeller",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/item/AmethystPropellerItem.java",
+          "src/main/resources/assets/washed_minerals/models/item/amethyst_propeller.json"
+        ]
+      }
+    },
+    {
+      "name": "AmethystPropellerRecipe",
+      "type": "recipe",
+      "sortid": 5,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_propeller_recipe",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/washed_minerals/recipes/amethyst_propeller_recipe.json"
+        ]
+      }
+    },
+    {
+      "name": "WashingFanRecipe",
+      "type": "recipe",
+      "sortid": 6,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "washing_fan_recipe",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/washed_minerals/recipes/washing_fan_recipe.json"
+        ]
+      }
+    },
+    {
+      "name": "WashingFanPowered",
+      "type": "block",
+      "sortid": 7,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "washing_fan_powered",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/washed_minerals/models/block/washing_fan_powered.json",
+          "src/main/java/net/haipadev/washedminerals/block/WashingFanPoweredBlock.java",
+          "src/main/resources/assets/washed_minerals/models/item/washing_fan_powered.json",
+          "src/main/java/net/haipadev/washedminerals/block/entity/WashingFanPoweredBlockEntity.java",
+          "src/main/resources/assets/washed_minerals/blockstates/washing_fan_powered.json"
+        ]
+      }
+    },
+    {
+      "name": "WashingFanPoweredUpdateTick",
+      "type": "procedure",
+      "sortid": 8,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "washing_fan_powered_update_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/WashingFanPoweredUpdateTickProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WashingFanPoweredBlockAdded",
+      "type": "procedure",
+      "sortid": 9,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "washing_fan_powered_block_added",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/WashingFanPoweredBlockAddedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WashingFanPoweredRestartDeathTimer",
+      "type": "procedure",
+      "sortid": 10,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "washing_fan_powered_restart_death_timer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/WashingFanPoweredRestartDeathTimerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WashingFanPoweredTickDeathTimer",
+      "type": "procedure",
+      "sortid": 11,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "washing_fan_powered_tick_death_timer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/WashingFanPoweredTickDeathTimerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WashingFanPoweredRestartProcessTimer",
+      "type": "procedure",
+      "sortid": 12,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "washing_fan_powered_restart_process_timer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/WashingFanPoweredRestartProcessTimerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WashingFanPoweredTickProcessTimer",
+      "type": "procedure",
+      "sortid": 13,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "washing_fan_powered_tick_process_timer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/WashingFanPoweredTickProcessTimerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WashingFanPoweredLoopSound",
+      "type": "procedure",
+      "sortid": 14,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "washing_fan_powered_loop_sound",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/WashingFanPoweredLoopSoundProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DeadRedstoneBlock",
+      "type": "block",
+      "sortid": 15,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "dead_redstone_block",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/washed_minerals/models/block/dead_redstone_block.json",
+          "src/main/java/net/haipadev/washedminerals/block/DeadRedstoneBlockBlock.java",
+          "src/main/resources/assets/washed_minerals/blockstates/dead_redstone_block.json",
+          "src/main/resources/assets/washed_minerals/models/item/dead_redstone_block.json"
+        ]
+      }
+    }
+  ],
+  "variable_elements": [],
+  "sound_elements": [
+    {
+      "name": "washing_fan",
+      "files": [
+        "fan"
+      ],
+      "category": "block",
+      "subtitle": "Washing Fan running"
+    }
+  ],
+  "language_map": {
+    "pl_pl": {
+      "block.washed_minerals.washing_fan_powered": "Wentylator Mineralny Napędzony",
+      "subtitles.washing_fan": "Wentylator Mineralny działa",
+      "item.washed_minerals.amethyst_propeller": "Ametystowe Śmigło",
+      "block.washed_minerals.washing_fan": "Wentylator Mineralny",
+      "block.washed_minerals.dead_redstone_block": "Blok Martwego Czerwonego Kamienia"
+    },
+    "en_us": {
+      "block.washed_minerals.washing_fan_powered": "Washing Fan Powered",
+      "subtitles.washing_fan": "Washing Fan running",
+      "item.washed_minerals.amethyst_propeller": "Amethyst Propeller",
+      "block.washed_minerals.washing_fan": "Washing Fan",
+      "block.washed_minerals.dead_redstone_block": "Dead Redstone Block"
+    }
+  },
+  "foldersRoot": {
+    "name": "~",
+    "children": []
+  },
+  "workspaceSettings": {
+    "modid": "washed_minerals",
+    "modName": "Washed Minerals",
+    "version": "1.0.0",
+    "author": "HaipaDev, MCreator",
+    "websiteURL": "https://modrinth.com/mod/washed-minerals",
+    "license": "MIT License",
+    "disableForgeVersionCheck": true,
+    "serverSideOnly": false,
+    "modPicture": "washing_fan_icon",
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "mcreatorDependencies": [],
+    "currentGenerator": "fabric-1.20.1",
+    "credits": "Created using mod maker MCreator - https://mcreator.net/about",
+    "modElementsPackage": "net.haipadev.washedminerals",
+    "lockBaseModFiles": false
+  },
+  "mcreatorVersion": 202300336712
+}

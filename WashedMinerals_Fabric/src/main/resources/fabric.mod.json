@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "washed_minerals",
+  "version": "1.0.0",
+  "name": "Washed Minerals",
+  "authors": [
+    "HaipaDev, MCreator"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/washed-minerals",
+    "sources": ""
+  },
+  "license": "MIT License",
+  "icon": "assets/washed_minerals/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.haipadev.washedminerals.WashedMineralsMod"
+    ],
+    "client": [
+      "net.haipadev.washedminerals.ClientInit"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.14.21",
+    "fabric": "*",
+    "minecraft": "~1.20",
+    "java": ">=17"
+  },
+  "mixins": [
+    "washed_minerals.mixins.json"
+  ]
+}

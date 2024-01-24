@@ -1,0 +1,12 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "casing": "washing_fan_texture_r",
+        "propeller": "amethyst_propeller",
+        "redstone 8x8": "redstone_block_texture_8x8"
+      },
+      "name": "default"
+    }
+  }
+}
