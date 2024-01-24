@@ -1,7 +1,8 @@
 {
-  "block.washed_minerals.washing_fan_powered": "Wentylator Mineralny Napędzony",
-  "subtitles.washing_fan": "Wentylator Mineralny działa",
-  "item.washed_minerals.amethyst_propeller": "Ametystowe Śmigło",
-  "block.washed_minerals.washing_fan": "Wentylator Mineralny",
-  "block.washed_minerals.dead_redstone_block": "Blok Martwego Czerwonego Kamienia"
+  "block.washed_minerals.amethyst_turbine_powered": "Zasilona Ametystowa Turbina",
+  "item.washed_minerals.amethyst_propeller": "Amethystowe Śmigło",
+  "block.washed_minerals.dead_redstone_block": "Martwy Blok Czerwonego Kamienia",
+  "block.washed_minerals.amethyst_turbine": "Ametystowa Turbina",
+  "block.washed_minerals.copper_dynamo": "Miedziane Dynamo",
+  "subtitles.fan": "Ametystowa Turbina działa"
 }

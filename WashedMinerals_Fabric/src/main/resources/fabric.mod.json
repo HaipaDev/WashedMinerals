@@ -10,8 +10,7 @@
     "homepage": "https://modrinth.com/mod/washed-minerals",
     "sources": ""
   },
-  "license": "MIT License",
-  "icon": "assets/washed_minerals/icon.png",
+  "license": "Academic Free License v3.0",
   "environment": "*",
   "entrypoints": {
     "main": [

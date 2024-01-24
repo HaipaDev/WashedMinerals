@@ -1,0 +1,13 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "washed_minerals:block/copper_dynamo",
+    "up": "washed_minerals:block/copper_dynamo",
+    "north": "washed_minerals:block/copper_dynamo",
+    "east": "washed_minerals:block/copper_dynamo",
+    "south": "washed_minerals:block/copper_dynamo",
+    "west": "washed_minerals:block/copper_dynamo",
+    "particle": "washed_minerals:block/copper_dynamo"
+  },
+  "render_type": "solid"
+}

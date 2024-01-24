@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-    "washed_minerals:dead_redstone_block"
+    "washed_minerals:dead_redstone_block",
+    "washed_minerals:amethyst_turbine",
+    "washed_minerals:amethyst_turbine_powered"
   ]
 }

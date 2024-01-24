@@ -1,7 +1,7 @@
 {
-  "washing_fan": {
+  "fan": {
     "category": "block",
-    "subtitle": "subtitles.washing_fan",
+    "subtitle": "subtitles.fan",
     "sounds": [
       {
         "name": "washed_minerals:fan",

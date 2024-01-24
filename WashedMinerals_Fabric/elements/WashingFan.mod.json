@@ -9,7 +9,7 @@
     "textureRight": "washing_fan_side",
     "textureBack": "washing_fan_back",
     "renderType": 2,
-    "customModelName": "washing_fan:default",
+    "customModelName": "amethyst_turbine:default",
     "rotationMode": 2,
     "enablePitch": false,
     "emissiveRendering": false,
@@ -33,7 +33,7 @@
         "subtract": false
       }
     ],
-    "name": "Washing Fan",
+    "name": "Amethyst Turbine",
     "specialInfo": [],
     "hardness": 4.0,
     "resistance": 6.0,

@@ -1,0 +1,48 @@
+{
+  "_fv": 47,
+  "_type": "recipe",
+  "definition": {
+    "recipeType": "Crafting",
+    "recipeRetstackSize": 1,
+    "group": "",
+    "cookingBookCategory": "MISC",
+    "xpReward": 0.0,
+    "cookingTime": 200,
+    "craftingBookCategory": "MISC",
+    "recipeShapeless": false,
+    "recipeSlots": [
+      {
+        "value": "Items.QUARTZ"
+      },
+      {
+        "value": "Blocks.IRON_BARS"
+      },
+      {
+        "value": "Items.QUARTZ"
+      },
+      {
+        "value": "Blocks.IRON_BLOCK"
+      },
+      {
+        "value": "CUSTOM:AmethystPropeller"
+      },
+      {
+        "value": "Blocks.IRON_BLOCK"
+      },
+      {
+        "value": "CUSTOM:CopperDynamo"
+      },
+      {
+        "value": "Blocks.IRON_BARS"
+      },
+      {
+        "value": "CUSTOM:CopperDynamo"
+      }
+    ],
+    "recipeReturnStack": {
+      "value": "CUSTOM:AmethystTurbinePowered"
+    },
+    "name": "amethyst_turbine_recipe",
+    "namespace": "mod"
+  }
+}

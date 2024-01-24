@@ -9,7 +9,7 @@
     "textureRight": "washing_fan_side",
     "textureBack": "washing_fan_back",
     "renderType": 2,
-    "customModelName": "washing_fan_powered:default",
+    "customModelName": "amethyst_turbine_powered:default",
     "rotationMode": 2,
     "enablePitch": false,
     "emissiveRendering": false,

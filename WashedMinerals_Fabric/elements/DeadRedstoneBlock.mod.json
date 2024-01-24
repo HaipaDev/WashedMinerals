@@ -40,7 +40,7 @@
     "hasGravity": false,
     "isWaterloggable": false,
     "creativeTab": {
-      "value": "No creative tab entry"
+      "value": "REDSTONE"
     },
     "destroyTool": "Not specified",
     "customDrop": {
@@ -54,7 +54,7 @@
     "canRedstoneConnect": false,
     "lightOpacity": 15,
     "material": {
-      "value": "BUILDABLE_GLASS"
+      "value": "FROGLIGHT"
     },
     "tickRate": 0,
     "tickRandomly": false,

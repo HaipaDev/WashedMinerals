@@ -1,7 +1,8 @@
 {
-  "block.washed_minerals.washing_fan_powered": "Washing Fan Powered",
-  "subtitles.washing_fan": "Washing Fan running",
+  "block.washed_minerals.amethyst_turbine_powered": "Amethyst Turbine Powered",
   "item.washed_minerals.amethyst_propeller": "Amethyst Propeller",
-  "block.washed_minerals.washing_fan": "Washing Fan",
-  "block.washed_minerals.dead_redstone_block": "Dead Redstone Block"
+  "block.washed_minerals.dead_redstone_block": "Dead Redstone Block",
+  "block.washed_minerals.amethyst_turbine": "Amethyst Turbine",
+  "block.washed_minerals.copper_dynamo": "Copper Dynamo",
+  "subtitles.fan": "Amethyst Turbine running"
 }

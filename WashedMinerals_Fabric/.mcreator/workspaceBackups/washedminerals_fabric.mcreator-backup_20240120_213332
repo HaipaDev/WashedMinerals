@@ -1,0 +1,485 @@
+{
+  "mod_elements": [
+    {
+      "name": "AmethystPropeller",
+      "type": "item",
+      "sortid": 2,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_propeller",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/washed_minerals/models/item/amethyst_propeller.json",
+          "src/main/java/net/haipadev/washedminerals/item/AmethystPropellerItem.java"
+        ]
+      }
+    },
+    {
+      "name": "AmethystPropellerRecipe",
+      "type": "recipe",
+      "sortid": 5,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_propeller_recipe",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/washed_minerals/recipes/amethyst_propeller_recipe.json"
+        ]
+      }
+    },
+    {
+      "name": "CopperDynamo",
+      "type": "block",
+      "sortid": 1,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "copper_dynamo",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/block/CopperDynamoBlock.java",
+          "src/main/resources/assets/washed_minerals/blockstates/copper_dynamo.json",
+          "src/main/resources/assets/washed_minerals/models/block/copper_dynamo.json",
+          "src/main/resources/assets/washed_minerals/models/item/copper_dynamo.json"
+        ]
+      }
+    },
+    {
+      "name": "DeadRedstoneBlock",
+      "type": "block",
+      "sortid": 3,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "dead_redstone_block",
+      "metadata": {
+        "files": [
+          "src/main/resources/assets/washed_minerals/models/block/dead_redstone_block.json",
+          "src/main/java/net/haipadev/washedminerals/block/DeadRedstoneBlockBlock.java",
+          "src/main/resources/assets/washed_minerals/blockstates/dead_redstone_block.json",
+          "src/main/resources/assets/washed_minerals/models/item/dead_redstone_block.json"
+        ]
+      }
+    },
+    {
+      "name": "CopperDynamoRecipe",
+      "type": "recipe",
+      "sortid": 4,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "copper_dynamo_recipe",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/washed_minerals/recipes/copper_dynamo_recipe.json"
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbine",
+      "type": "block",
+      "sortid": 6,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/block/entity/AmethystTurbineBlockEntity.java",
+          "src/main/java/net/haipadev/washedminerals/block/AmethystTurbineBlock.java",
+          "src/main/resources/assets/washed_minerals/models/block/amethyst_turbine.json",
+          "src/main/resources/assets/washed_minerals/models/item/amethyst_turbine.json",
+          "src/main/resources/assets/washed_minerals/blockstates/amethyst_turbine.json"
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbinePowered",
+      "type": "block",
+      "sortid": 7,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_powered",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/block/AmethystTurbinePoweredBlock.java",
+          "src/main/resources/assets/washed_minerals/models/item/amethyst_turbine_powered.json",
+          "src/main/resources/assets/washed_minerals/blockstates/amethyst_turbine_powered.json",
+          "src/main/resources/assets/washed_minerals/models/block/amethyst_turbine_powered.json",
+          "src/main/java/net/haipadev/washedminerals/block/entity/AmethystTurbinePoweredBlockEntity.java"
+        ]
+      }
+    },
+    {
+      "name": "AmethysTurbineRecipe",
+      "type": "recipe",
+      "sortid": 8,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethys_turbine_recipe",
+      "metadata": {
+        "files": [
+          "src/main/resources/data/washed_minerals/recipes/amethys_turbine_recipe.json"
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbinePoweredRestartDeathTimer",
+      "type": "procedure",
+      "sortid": 10,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_powered_restart_death_timer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbinePoweredRestartDeathTimerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbinePoweredTickDeathTimer",
+      "type": "procedure",
+      "sortid": 9,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_powered_tick_death_timer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbinePoweredTickDeathTimerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbinePoweredRestartProcessTimer",
+      "type": "procedure",
+      "sortid": 11,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_powered_restart_process_timer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbinePoweredRestartProcessTimerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbinePoweredTickProcessTimer",
+      "type": "procedure",
+      "sortid": 12,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_powered_tick_process_timer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbinePoweredTickProcessTimerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbinePoweredLoopSound",
+      "type": "procedure",
+      "sortid": 13,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_powered_loop_sound",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbinePoweredLoopSoundProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbineUpdateTick",
+      "type": "procedure",
+      "sortid": 14,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_update_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbineUpdateTickProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbinePoweredUpdateTick",
+      "type": "procedure",
+      "sortid": 15,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_powered_update_tick",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbinePoweredUpdateTickProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbinePoweredBlockAdded",
+      "type": "procedure",
+      "sortid": 16,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_powered_block_added",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbinePoweredBlockAddedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbineSetDeathTimer",
+      "type": "procedure",
+      "sortid": 17,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_set_death_timer",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbineSetDeathTimerProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    },
+    {
+      "name": "AmethystTurbineBlockAdded",
+      "type": "procedure",
+      "sortid": 18,
+      "compiles": true,
+      "locked_code": false,
+      "registry_name": "amethyst_turbine_block_added",
+      "metadata": {
+        "files": [
+          "src/main/java/net/haipadev/washedminerals/procedures/AmethystTurbineBlockAddedProcedure.java"
+        ],
+        "dependencies": [
+          {
+            "name": "x",
+            "type": "number"
+          },
+          {
+            "name": "y",
+            "type": "number"
+          },
+          {
+            "name": "z",
+            "type": "number"
+          },
+          {
+            "name": "world",
+            "type": "world"
+          }
+        ]
+      }
+    }
+  ],
+  "variable_elements": [],
+  "sound_elements": [
+    {
+      "name": "fan",
+      "files": [
+        "fan"
+      ],
+      "category": "block",
+      "subtitle": "Amethyst Turbine running"
+    }
+  ],
+  "language_map": {
+    "pl_pl": {
+      "block.washed_minerals.amethyst_turbine_powered": "Zasilona Ametystowa Turbina",
+      "item.washed_minerals.amethyst_propeller": "Amethystowe Śmigło",
+      "block.washed_minerals.dead_redstone_block": "Martwy Blok Czerwonego Kamienia",
+      "block.washed_minerals.amethyst_turbine": "Ametystowa Turbina",
+      "block.washed_minerals.copper_dynamo": "Miedziane Dynamo",
+      "subtitles.fan": "Ametystowa Turbina działa"
+    },
+    "en_us": {
+      "block.washed_minerals.amethyst_turbine_powered": "Amethyst Turbine Powered",
+      "item.washed_minerals.amethyst_propeller": "Amethyst Propeller",
+      "block.washed_minerals.dead_redstone_block": "Dead Redstone Block",
+      "block.washed_minerals.amethyst_turbine": "Amethyst Turbine",
+      "block.washed_minerals.copper_dynamo": "Copper Dynamo",
+      "subtitles.fan": "Amethyst Turbine running"
+    }
+  },
+  "foldersRoot": {
+    "name": "~",
+    "children": []
+  },
+  "workspaceSettings": {
+    "modid": "washed_minerals",
+    "modName": "Washed Minerals",
+    "version": "1.0.0",
+    "author": "HaipaDev, MCreator",
+    "websiteURL": "https://modrinth.com/mod/washed-minerals",
+    "license": "Academic Free License v3.0",
+    "disableForgeVersionCheck": true,
+    "serverSideOnly": false,
+    "requiredMods": [],
+    "dependencies": [],
+    "dependants": [],
+    "mcreatorDependencies": [],
+    "currentGenerator": "fabric-1.20.1",
+    "credits": "Created using mod maker MCreator - https://mcreator.net/about",
+    "modElementsPackage": "net.haipadev.washedminerals",
+    "lockBaseModFiles": false
+  },
+  "mcreatorVersion": 202300336712
+}

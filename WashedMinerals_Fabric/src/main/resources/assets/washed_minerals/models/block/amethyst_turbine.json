@@ -1,0 +1,12 @@
+{
+  "parent": "washed_minerals:custom/amethyst_turbine",
+  "textures": {
+    "all": "washed_minerals:block/washing_fan_side_r",
+    "particle": "washed_minerals:block/washing_fan_side_r",
+    "casing": "washed_minerals:block/washing_fan_texture_r",
+    "copper dynamo": "washed_minerals:block/copper_dynamo_8x8",
+    "propeller": "washed_minerals:block/amethyst_propeller",
+    "redstone 8x8": "washed_minerals:block/redstone_block_texture_8x8"
+  },
+  "render_type": "cutout"
+}

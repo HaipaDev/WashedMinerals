@@ -10,9 +10,9 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.Registry;
 
 public class WashedMineralsModSounds {
-	public static SoundEvent WASHING_FAN = SoundEvent.createVariableRangeEvent(new ResourceLocation("washed_minerals", "washing_fan"));
+	public static SoundEvent FAN = SoundEvent.createVariableRangeEvent(new ResourceLocation("washed_minerals", "fan"));
 
 	public static void load() {
-		Registry.register(BuiltInRegistries.SOUND_EVENT, new ResourceLocation("washed_minerals", "washing_fan"), WASHING_FAN);
+		Registry.register(BuiltInRegistries.SOUND_EVENT, new ResourceLocation("washed_minerals", "fan"), FAN);
 	}
 }

@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "012",
+    "345",
+    "678"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:gold_ingot"
+    },
+    "1": {
+      "item": "minecraft:weathered_copper"
+    },
+    "2": {
+      "item": "minecraft:gold_ingot"
+    },
+    "3": {
+      "item": "minecraft:weathered_copper"
+    },
+    "4": {
+      "item": "minecraft:redstone_block"
+    },
+    "5": {
+      "item": "minecraft:weathered_copper"
+    },
+    "6": {
+      "item": "minecraft:gold_ingot"
+    },
+    "7": {
+      "item": "minecraft:weathered_copper"
+    },
+    "8": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "result": {
+    "item": "washed_minerals:copper_dynamo",
+    "count": 1
+  }
+}

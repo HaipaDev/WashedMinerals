@@ -1,0 +1,13 @@
+{
+  "mappings": {
+    "default": {
+      "map": {
+        "copper dynamo": "copper_dynamo_8x8",
+        "casing powered": "washing_fan_texture_powered",
+        "propeller": "amethyst_propeller",
+        "redstone 8x8": "redstone_block_texture_8x8"
+      },
+      "name": "default"
+    }
+  }
+}

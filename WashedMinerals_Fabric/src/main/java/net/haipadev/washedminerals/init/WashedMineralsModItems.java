@@ -16,17 +16,21 @@ import net.haipadev.washedminerals.WashedMineralsMod;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 
 public class WashedMineralsModItems {
-	public static Item WASHING_FAN;
+	public static Item COPPER_DYNAMO;
 	public static Item AMETHYST_PROPELLER;
-	public static Item WASHING_FAN_POWERED;
 	public static Item DEAD_REDSTONE_BLOCK;
+	public static Item AMETHYST_TURBINE;
+	public static Item AMETHYST_TURBINE_POWERED;
 
 	public static void load() {
-		WASHING_FAN = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(WashedMineralsMod.MODID, "washing_fan"), new BlockItem(WashedMineralsModBlocks.WASHING_FAN, new Item.Properties()));
-		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(content -> content.accept(WASHING_FAN));
+		COPPER_DYNAMO = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(WashedMineralsMod.MODID, "copper_dynamo"), new BlockItem(WashedMineralsModBlocks.COPPER_DYNAMO, new Item.Properties()));
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(content -> content.accept(COPPER_DYNAMO));
 		AMETHYST_PROPELLER = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(WashedMineralsMod.MODID, "amethyst_propeller"), new AmethystPropellerItem());
-		WASHING_FAN_POWERED = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(WashedMineralsMod.MODID, "washing_fan_powered"), new BlockItem(WashedMineralsModBlocks.WASHING_FAN_POWERED, new Item.Properties()));
 		DEAD_REDSTONE_BLOCK = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(WashedMineralsMod.MODID, "dead_redstone_block"), new BlockItem(WashedMineralsModBlocks.DEAD_REDSTONE_BLOCK, new Item.Properties()));
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(content -> content.accept(DEAD_REDSTONE_BLOCK));
+		AMETHYST_TURBINE = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(WashedMineralsMod.MODID, "amethyst_turbine"), new BlockItem(WashedMineralsModBlocks.AMETHYST_TURBINE, new Item.Properties()));
+		ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.REDSTONE_BLOCKS).register(content -> content.accept(AMETHYST_TURBINE));
+		AMETHYST_TURBINE_POWERED = Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(WashedMineralsMod.MODID, "amethyst_turbine_powered"), new BlockItem(WashedMineralsModBlocks.AMETHYST_TURBINE_POWERED, new Item.Properties()));
 	}
 
 	public static void clientLoad() {

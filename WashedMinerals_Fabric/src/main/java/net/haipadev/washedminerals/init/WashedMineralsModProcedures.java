@@ -4,25 +4,29 @@
  */
 package net.haipadev.washedminerals.init;
 
-import net.haipadev.washedminerals.procedures.WashingFanUpdateTickProcedure;
-import net.haipadev.washedminerals.procedures.WashingFanPoweredUpdateTickProcedure;
-import net.haipadev.washedminerals.procedures.WashingFanPoweredTickProcessTimerProcedure;
-import net.haipadev.washedminerals.procedures.WashingFanPoweredTickDeathTimerProcedure;
-import net.haipadev.washedminerals.procedures.WashingFanPoweredRestartProcessTimerProcedure;
-import net.haipadev.washedminerals.procedures.WashingFanPoweredRestartDeathTimerProcedure;
-import net.haipadev.washedminerals.procedures.WashingFanPoweredLoopSoundProcedure;
-import net.haipadev.washedminerals.procedures.WashingFanPoweredBlockAddedProcedure;
+import net.haipadev.washedminerals.procedures.AmethystTurbineUpdateTickProcedure;
+import net.haipadev.washedminerals.procedures.AmethystTurbineSetDeathTimerProcedure;
+import net.haipadev.washedminerals.procedures.AmethystTurbinePoweredUpdateTickProcedure;
+import net.haipadev.washedminerals.procedures.AmethystTurbinePoweredTickProcessTimerProcedure;
+import net.haipadev.washedminerals.procedures.AmethystTurbinePoweredTickDeathTimerProcedure;
+import net.haipadev.washedminerals.procedures.AmethystTurbinePoweredRestartProcessTimerProcedure;
+import net.haipadev.washedminerals.procedures.AmethystTurbinePoweredRestartDeathTimerProcedure;
+import net.haipadev.washedminerals.procedures.AmethystTurbinePoweredLoopSoundProcedure;
+import net.haipadev.washedminerals.procedures.AmethystTurbinePoweredBlockAddedProcedure;
+import net.haipadev.washedminerals.procedures.AmethystTurbineBlockAddedProcedure;
 
 @SuppressWarnings("InstantiationOfUtilityClass")
 public class WashedMineralsModProcedures {
 	public static void load() {
-		new WashingFanUpdateTickProcedure();
-		new WashingFanPoweredUpdateTickProcedure();
-		new WashingFanPoweredBlockAddedProcedure();
-		new WashingFanPoweredRestartDeathTimerProcedure();
-		new WashingFanPoweredTickDeathTimerProcedure();
-		new WashingFanPoweredRestartProcessTimerProcedure();
-		new WashingFanPoweredTickProcessTimerProcedure();
-		new WashingFanPoweredLoopSoundProcedure();
+		new AmethystTurbinePoweredTickDeathTimerProcedure();
+		new AmethystTurbinePoweredRestartDeathTimerProcedure();
+		new AmethystTurbinePoweredRestartProcessTimerProcedure();
+		new AmethystTurbinePoweredTickProcessTimerProcedure();
+		new AmethystTurbinePoweredLoopSoundProcedure();
+		new AmethystTurbineUpdateTickProcedure();
+		new AmethystTurbinePoweredUpdateTickProcedure();
+		new AmethystTurbinePoweredBlockAddedProcedure();
+		new AmethystTurbineSetDeathTimerProcedure();
+		new AmethystTurbineBlockAddedProcedure();
 	}
 }
